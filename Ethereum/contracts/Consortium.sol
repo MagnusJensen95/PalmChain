@@ -215,10 +215,11 @@ contract Consortium {
             });
 
             COTokens.push(token);
-           
+           emit COTokenSubmitted(token.owner, token.newOwner, COTokens.length-1);
               for (uint j=0; i<tokensToInclude.length; i++) {
                   FFBTokens[tokensToInclude[j]].processed = true;
                   FFBTokens[tokensToInclude[j]].newOwner = 0;
+                  FFBTokens[tokensToInclude[j]].owner = msg.sender;
            
                  }
             delete tokensToInclude;
@@ -229,7 +230,7 @@ contract Consortium {
 
     }
 
-    function revokePlantationAccess(address plantation) public {
+    function revokePlantationAccess(address plantation) onlyRSPOAdmin public {
         
     }
       
