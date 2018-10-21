@@ -59,6 +59,9 @@ contract Consortium {
 
     event COTokenSubmitted(address owner, address newOwner, uint index);
 
+    event PlantationSubmissionRequested(address plantationAddressOrigin);
+     event PlantationSubmissionApproved(address plantationAddressOrigin);
+
    // event PlantationSubmissionRequested(address owner, address newOwner, uint index);
     
     Mill public activeMill;
@@ -118,7 +121,7 @@ contract Consortium {
          
         });
         
-
+        emit PlantationSubmissionRequested(msg.sender);
         
         pendingPlantationRequests[msg.sender] = newPlantation;
         
@@ -130,6 +133,7 @@ contract Consortium {
         plantations[requestOrigin] = pendingPlantationRequests[requestOrigin];
         certifiedPlantations[requestOrigin] = true;
         delete pendingPlantationRequests[requestOrigin];
+        emit PlantationSubmissionApproved(requestOrigin);
         
     }
     
@@ -231,6 +235,7 @@ contract Consortium {
     }
 
     function revokePlantationAccess(address plantation) onlyRSPOAdmin public {
+        delete registeredPlantations[plantation];
         
     }
       
