@@ -1,28 +1,31 @@
 pragma solidity ^0.4.0;
+
+
 contract Consortium {
     
     struct FFBToken {
-        //farmerAddress: address;
+
         uint weight;
         address plantationOrigin;
+        address owner;
         address newOwner;
-        string harvestTimeStamp;
+        uint harvestTimeStamp;
         bool RSPOCertified;
         bool processed;
-        bytes32 FFBHash;
-        bytes32 COToken;
+    
 
     }
     
     struct COToken {
 
         uint weight;
-        bytes32[] containedFFB;
+        uint[] containedFFB;
         address millOrigin;
+        address owner;
         address newOwner;
         bool RSPOCertified;
         bool processed;
-        bytes32 COHash;
+        
     }
     
     struct Plantation {
@@ -31,7 +34,7 @@ contract Consortium {
         uint capacity;
         string GPSLongitude;
         string GPSLatitude;
-        bytes32 RSPOToken;
+  
 
         //Hash may be omitted in favor of address use
      //   bytes32 plantationHash;
@@ -50,21 +53,33 @@ contract Consortium {
      //   bytes32 millHash;
     }
     
+
+    //Events:
+    event FFBTokenSubmitted(address owner, address newOwner, uint index);
+
+    event COTokenSubmitted(address owner, address newOwner, uint index);
+
+   // event PlantationSubmissionRequested(address owner, address newOwner, uint index);
     
     Mill public activeMill;
 
     mapping (address => Plantation) public plantations;
     
     mapping (address => bool) public registeredPlantations;
+
     mapping (address => bool) public certifiedPlantations;
 
     mapping (address => address) public plantationPermit;
 
     mapping (address => Plantation) public pendingPlantationRequests;
     
-    mapping (bytes32 => FFBToken) public FFBTokens;
-    mapping (bytes32 => COToken) public COTokens;
+    // mapping (bytes32 => FFBToken) public FFBTokens;
+
+    FFBToken[] public FFBTokens;
+
+   // mapping (bytes32 => COToken) public COTokens;
    
+    COToken[] public COTokens;
     
     address public RSPOAdministrator;
     
@@ -72,7 +87,7 @@ contract Consortium {
     
     mapping (bytes32 => bool) public FFBExists;
 
-    bytes32[] public tokensToInclude;
+    uint[] public tokensToInclude;
     
     modifier onlyRSPOAdmin {
         require(msg.sender == RSPOAdministrator, "RSPO authentication required");
@@ -88,23 +103,22 @@ contract Consortium {
     function requestPlantationSubscription(string name,
         uint capacity,
         string GPSLongitude,
-        string GPSLatitude,
-        bytes32 RSPOToken
+        string GPSLatitude
       ) public {
       
-        
+                //msg.sender is assumed to be address of plantation
+        require(!registeredPlantations[msg.sender], "Plantation is already registered");
+
         Plantation memory newPlantation = Plantation({
             associatedAddress: msg.sender,
             name: name,
             capacity: capacity,
             GPSLatitude:GPSLatitude,
-            GPSLongitude:GPSLongitude,
-            RSPOToken: RSPOToken
-          
+            GPSLongitude:GPSLongitude
+         
         });
         
-        //msg.sender is assumed to be address of plantation
-          require(!registeredPlantations[msg.sender], "Plantation is already registered");
+
         
         pendingPlantationRequests[msg.sender] = newPlantation;
         
@@ -119,7 +133,7 @@ contract Consortium {
         
     }
     
-    function setMill( string GPSLongitude,
+    function setMill(string GPSLongitude,
         string GPSLatitude,
         string RSPOToken,
         string name,
@@ -140,66 +154,71 @@ contract Consortium {
     
     function submitFFBToken(
         uint weight,
-        address plantationOrigin,
-        string harvestTimeStamp
-        ) public{
-            
-        require(plantationPermit[msg.sender] == plantationOrigin, "Access Denied, no permission detected");
-        bool isCertified = certifiedPlantations[plantationOrigin] = true;  
+        uint harvestTimeStamp
+        ) public returns (uint){
 
-        bytes32 ffbHash = keccak256(abi.encodePacked(blockhash(block.number), weight, plantationOrigin));
+            //Find date løsning
+        //Assume call comes from plantation contract => msg.sender is valid
+        require(registeredPlantations[msg.sender], "Access Denied, no permission detected");
+        bool isCertified = certifiedPlantations[msg.sender] = true;  
 
-         require(!FFBExists[ffbHash], "Token already submitted");
 
         FFBToken memory token = FFBToken({
          weight: weight,
-         plantationOrigin: plantationOrigin,
+         plantationOrigin: msg.sender,
+         owner: msg.sender,
          newOwner: activeMill.associatedAddress,
          harvestTimeStamp: harvestTimeStamp,
          RSPOCertified: isCertified,
-         processed: false,
-         FFBHash: ffbHash,
-         COToken: ""});
+         processed: false});
 
-        FFBTokens[ffbHash] = token;
-        FFBExists[token.FFBHash] = true;
+        FFBTokens.push(token);
+
+        emit FFBTokenSubmitted(msg.sender, activeMill.associatedAddress, FFBTokens.length -1);
+        return FFBTokens.length -1;
         }
 
     
-    function consumeFFBTokens( bytes32[] tokenHashes, uint weight) public {
+    function consumeFFBTokens( uint[] tokenIndexes) public {
+        require(tokenIndexes.length > 0, "You must include tokens");
 
+        //Calculate token weight from FFB tokens
         require(msg.sender == activeMill.associatedAddress, "Only active mill owner is allowed to create COTokens");
-     bool allTokensCertified = true;
-        for (uint i=0; i<tokenHashes.length; i++) {
+        bool allTokensCertified = true;
+        uint coWeight = 0;
+        for (uint i=0; i<tokenIndexes.length; i++) {
 
-            if(FFBExists[tokenHashes[i]]){
-                if(!FFBTokens[tokenHashes[i]].processed){
-                    tokensToInclude.push(tokenHashes[i]);
-                     if(!FFBTokens[tokenHashes[i]].RSPOCertified){
+
+               require(FFBTokens[tokenIndexes[i]].newOwner == msg.sender, "This is not the intended destination of the token");
+               require(!FFBTokens[tokenIndexes[i]].processed, "This token has already been processed");
+                     
+                    tokensToInclude.push(tokenIndexes[i]);
+                    coWeight += FFBTokens[tokenIndexes[i]].weight;
+                     if(!FFBTokens[tokenIndexes[i]].RSPOCertified){
                  
-                          allTokensCertified = false;
-                       }
-                }
-            }
-        }
+                         allTokensCertified = false;
+                     }              
+                
+               }
 
         if(tokensToInclude.length > 0){
-            bytes32 coHash = keccak256(abi.encodePacked(blockhash(block.number), weight, tokensToInclude));
+           
            COToken memory token = COToken({
-             weight: weight,
+             weight: coWeight,
              containedFFB: tokensToInclude,
-             newOwner: activeMill.associatedAddress,
+             owner: msg.sender,
+             newOwner:  0,
              millOrigin: activeMill.associatedAddress,
              RSPOCertified: allTokensCertified,
-             processed: false,
-             COHash: coHash
+             processed: false
+    
             });
 
-            COTokens[coHash] = token;
-            COExists[coHash] = true;
+            COTokens.push(token);
+           
               for (uint j=0; i<tokensToInclude.length; i++) {
                   FFBTokens[tokensToInclude[j]].processed = true;
-                  FFBTokens[tokensToInclude[j]].COToken = coHash;
+                  FFBTokens[tokensToInclude[j]].newOwner = 0;
            
                  }
             delete tokensToInclude;
@@ -209,5 +228,9 @@ contract Consortium {
 
 
     }
-    
+
+    function revokePlantationAccess(address plantation) public {
+        
+    }
+      
 }
