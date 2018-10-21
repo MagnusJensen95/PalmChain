@@ -1,4 +1,5 @@
 const Consortium = artifacts.require("Consortium");
+const truffleAssert = require('truffle-assertions');
 
 contract('Consortium functionality test', async (accounts) => {
     let instance;
@@ -16,11 +17,14 @@ contract('Consortium functionality test', async (accounts) => {
     })
 
     it("should allow foreign plantations to request access", async () => {
-
-
-        truffleAssert.eventEmitted(tx, 'Play', (ev) => {
-            return ev.player === bettingAccount && !ev.betNumber.eq(ev.winningNumber);
+        let name = "Test Plantation";
+        let capacity = 100;
+        let longitude = "North";
+        let latitude = "West";
+        let tx = await instance.requestPlantationSubscription(name, capacity, longitude, latitude, {
+            from: plantationAddress
         });
+        truffleAssert.eventEmitted(tx, 'PlantationSubmissionRequested');
 
     });
 
