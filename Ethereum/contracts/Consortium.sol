@@ -46,7 +46,7 @@ contract Consortium {
         address associatedAddress;
         string GPSLongitude;
         string GPSLatitude;
-        string RSPOToken;
+        
         string name;
 
         //Hash may be omitted in favor of address use
@@ -60,7 +60,7 @@ contract Consortium {
     event COTokenSubmitted(address owner, address newOwner, uint index);
 
     event PlantationSubmissionRequested(address plantationAddressOrigin);
-     event PlantationSubmissionApproved(address plantationAddressOrigin);
+    event PlantationSubmissionApproved(address plantationAddressOrigin);
 
    // event PlantationSubmissionRequested(address owner, address newOwner, uint index);
     
@@ -132,6 +132,7 @@ contract Consortium {
         //Index may be derived from planatation hash rather than passed with index
         plantations[requestOrigin] = pendingPlantationRequests[requestOrigin];
         certifiedPlantations[requestOrigin] = true;
+        registeredPlantations[requestOrigin] = true;
         delete pendingPlantationRequests[requestOrigin];
         emit PlantationSubmissionApproved(requestOrigin);
         
@@ -139,7 +140,7 @@ contract Consortium {
     
     function setMill(string GPSLongitude,
         string GPSLatitude,
-        string RSPOToken,
+        
         string name,
         address origin) public onlyRSPOAdmin {
             
@@ -147,8 +148,7 @@ contract Consortium {
             name: name,
             associatedAddress: origin,
             GPSLatitude:GPSLatitude,
-            GPSLongitude:GPSLongitude,
-            RSPOToken: RSPOToken
+            GPSLongitude:GPSLongitude
         });
         
         activeMill = newMill;
@@ -159,9 +159,9 @@ contract Consortium {
     function submitFFBToken(
         uint weight,
         uint harvestTimeStamp
-        ) public returns (uint){
+        ) public {
 
-            //Find date løsning
+        //Find date løsning
         //Assume call comes from plantation contract => msg.sender is valid
         require(registeredPlantations[msg.sender], "Access Denied, no permission detected");
         bool isCertified = certifiedPlantations[msg.sender] = true;  
@@ -179,7 +179,7 @@ contract Consortium {
         FFBTokens.push(token);
 
         emit FFBTokenSubmitted(msg.sender, activeMill.associatedAddress, FFBTokens.length -1);
-        return FFBTokens.length -1;
+       
         }
 
     
@@ -236,6 +236,11 @@ contract Consortium {
 
     function revokePlantationAccess(address plantation) onlyRSPOAdmin public {
         delete registeredPlantations[plantation];
+        
+    }
+
+    function getPlantationAtAddress(address plantation) onlyRSPOAdmin public view returns(string){
+        return plantations[plantation].name;
         
     }
       
