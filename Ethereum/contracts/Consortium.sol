@@ -196,14 +196,14 @@ contract Consortium {
                require(FFBTokens[tokenIndexes[i]].newOwner == msg.sender, "This is not the intended destination of the token");
                require(!FFBTokens[tokenIndexes[i]].processed, "This token has already been processed");
                      
-                    tokensToInclude.push(tokenIndexes[i]);
-                    coWeight += FFBTokens[tokenIndexes[i]].weight;
-                     if(!FFBTokens[tokenIndexes[i]].RSPOCertified){
+                tokensToInclude.push(tokenIndexes[i]);
+                coWeight += FFBTokens[tokenIndexes[i]].weight;
+                if(!FFBTokens[tokenIndexes[i]].RSPOCertified){
                  
-                         allTokensCertified = false;
-                     }              
+                    allTokensCertified = false;
+                }              
                 
-               }
+        }
 
         if(tokensToInclude.length > 0){
            
@@ -220,10 +220,11 @@ contract Consortium {
 
             COTokens.push(token);
            emit COTokenSubmitted(token.owner, token.newOwner, COTokens.length-1);
-              for (uint j=0; i<tokensToInclude.length; i++) {
-                  FFBTokens[tokensToInclude[j]].processed = true;
-                  FFBTokens[tokensToInclude[j]].newOwner = 0;
-                  FFBTokens[tokensToInclude[j]].owner = msg.sender;
+                 for (uint j=0; j<tokensToInclude.length; j++) {
+                 FFBToken storage tokenToUpdate =  FFBTokens[tokensToInclude[j]];
+                  tokenToUpdate.processed = true;
+                  tokenToUpdate.newOwner = 0;
+                  tokenToUpdate.owner = msg.sender;
            
                  }
             delete tokensToInclude;

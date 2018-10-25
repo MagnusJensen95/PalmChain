@@ -1,6 +1,30 @@
 const Consortium = artifacts.require("Consortium");
 const truffleAssert = require("truffle-assertions");
 
+mapResponseToFFBToken = token => {
+  return {
+    weight: token[0].toNumber(),
+    plantationOrigin: token[1],
+    owner: token[2],
+    newOwner: token[3],
+    harvestTimeStamp: token[4].toNumber(),
+    RSPOCertified: token[5],
+    processed: token[6]
+  };
+};
+
+mapResponseToCOToken = token => {
+  return {
+    weight: token[0].toNumber(),
+    plantationOrigin: token[1],
+    owner: token[2],
+    newOwner: token[3],
+    harvestTimeStamp: token[4].toNumber(),
+    RSPOCertified: token[5],
+    processed: token[6]
+  };
+};
+
 contract("Consortium functionality test", async accounts => {
   let instance;
   let rspoAdmin = accounts[0];
@@ -204,5 +228,14 @@ contract("Consortium functionality test", async accounts => {
     assert.equal(tokenWeight, fruitWeight);
 
     assert.ok(COTokenRes);
+
+    // Also assert that included tokens have been processed and their owner / newOwner has changed
+
+    for (let batchIndex of indexArray) {
+      let FFBTokenToCheck = await instance.FFBTokens(batchIndex);
+      let resolvedToken = mapResponseToFFBToken(FFBTokenToCheck);
+      assert.equal(resolvedToken.processed, true);
+      assert.equal(resolvedToken.owner, millAddress);
+    }
   });
 });
