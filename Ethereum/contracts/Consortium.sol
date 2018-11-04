@@ -97,10 +97,13 @@ contract Consortium {
          _;
     }
     
-    constructor() public {
-        RSPOAdministrator = msg.sender;
+    constructor(address RSPOAdmin) public {
+        RSPOAdministrator = RSPOAdmin;
     }
     
+    // constructor() public {
+    //     RSPOAdministrator = msg.sender;
+    // }
     
     //Request addition of new Plantation to consortium
     function requestPlantationSubscription(string name,

@@ -1,5 +1,7 @@
 const Consortium = artifacts.require("Consortium");
+const ConsortiumDeployer = artifacts.require("ConsortiumDeployer");
 const truffleAssert = require("truffle-assertions");
+
 
 mapResponseToFFBToken = token => {
   return {
@@ -57,9 +59,18 @@ contract("Consortium functionality test", async accounts => {
   };
 
   const deploy = async () => {
-    instance = await Consortium.new({
+    let consortiumDeployerInstance = await ConsortiumDeployer.new({
       from: accounts[0]
     });
+    await consortiumDeployerInstance.createConsortium({
+      from: accounts[0]
+    });
+
+    let newConsortiumAddress = await consortiumDeployerInstance.getDeployedConsortiums({
+      from: accounts[0]
+    });
+    let actualAddress = newConsortiumAddress[0];
+    instance = await Consortium.at(actualAddress)
     rspoAdmin = await instance.RSPOAdministrator.call();
   };
 

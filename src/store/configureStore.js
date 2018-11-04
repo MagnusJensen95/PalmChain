@@ -1,9 +1,17 @@
 import {
   combineReducers
 } from 'redux'
-import todos from './reducers/todos'
-import visibilityFilter from './reducers/visibilityFilter'
-export default combineReducers({
-  todos,
-  visibilityFilter
-})
+
+import rspo from './reducers/rspo'
+
+
+
+//Merge reducers
+const rootReducer = combineReducers({
+  rspoReducer: rspo
+
+});
+
+
+export default rootReducer;
+

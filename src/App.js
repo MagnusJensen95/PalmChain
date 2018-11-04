@@ -5,27 +5,19 @@ import { Route, Switch } from "react-router";
 
 
 import './App.css';
+import RSPO from './pages/RSPO/RSPO';
 
-const Home = () => {
-  return (<div>Home</div>)
-}
-
-
-const About = () => {
-  return (<div>About</div>)
-}
-const Contact = () => {
-  return (<div>Contact</div>)
-}
 
 class App extends Component {
+
+
   render() {
     return (
 
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
+        <Route exact path="/" component={RSPO} />
+        <Route path="/about" component={RSPO} />
+        <Route path="/contact" component={RSPO} />
 
       </Switch>
 

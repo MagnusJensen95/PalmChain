@@ -3,22 +3,38 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router';
-
 import { createBrowserHistory } from 'history';
+import { connectRouter, ConnectedRouter } from 'connected-react-router';
 import {
   Provider
 } from 'react-redux';
-import {
-  createStore
-} from 'redux';
-
 import rootReducer from './store/configureStore'
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
+
+
+
+
+
+
+
+
+let composeEnhancers = compose;
 const history = createBrowserHistory();
 
-const store = createStore(connectRouter(history)(rootReducer),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+// const store = createStore(,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+const configureStore = () => {
+  return createStore(connectRouter(history)(rootReducer), composeEnhancers(applyMiddleware(thunk)));
+};
+
+const store = configureStore();
 
 
 const AppContent = (
