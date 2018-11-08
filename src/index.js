@@ -12,11 +12,7 @@ import rootReducer from './store/configureStore'
 import { createStore, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-
-
-
-
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 
 
@@ -37,12 +33,31 @@ const configureStore = () => {
 const store = configureStore();
 
 
+const appTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      main: '#00695c',
+      contrastText: "#FFFFFF"
+    },
+    secondary: {
+      main: '#81c784',
+      contrastText: "#FFFFFF"
+    },
+  },
+
+});
+
 const AppContent = (
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>
+  <MuiThemeProvider theme={appTheme}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>
+  </MuiThemeProvider>
 )
 
 

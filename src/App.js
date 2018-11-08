@@ -2,10 +2,19 @@ import React, {
   Component
 } from 'react';
 import { Route, Switch } from "react-router";
+import Login from './pages/Login';
 
 
 import './App.css';
 import RSPO from './pages/RSPO/RSPO';
+
+import Sidebar from './components/Sidebar';
+import Overview from './pages/Overview/Overview';
+import Plantation from './pages/Plantation/Plantation';
+import Mill from './pages/Mill/Mill';
+
+
+
 
 
 class App extends Component {
@@ -13,14 +22,20 @@ class App extends Component {
 
   render() {
     return (
+      <div className="appContainer">
 
-      <Switch>
-        <Route exact path="/" component={RSPO} />
-        <Route path="/about" component={RSPO} />
-        <Route path="/contact" component={RSPO} />
+        <Sidebar />
+        <div className="appContent">
+          <Switch>
+            <Route exact path="/" component={Overview} />
+            <Route path="/RSPO" component={RSPO} />
+            <Route path="/Plantation" component={Plantation} />
+            <Route path="/Mill" component={Mill} />
+            <Route path="/login" component={Login} />
 
-      </Switch>
-
+          </Switch>
+        </div>
+      </div>
     )
   }
 }

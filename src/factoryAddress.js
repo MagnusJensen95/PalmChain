@@ -1,5 +1,5 @@
 //Address of current instance of ConsortiumDeployment contract on 
 
-const address = "0x79BA93b0020dbA0E376865eBE31ACc50d638aE7a"
+const address = "0xa25Deedb6228c765414025a2be3249A1298A6B28"
 
 export default address;
