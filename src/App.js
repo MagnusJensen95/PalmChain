@@ -32,6 +32,7 @@ class App extends Component {
             <Route path="/Plantation" component={Plantation} />
             <Route path="/Mill" component={Mill} />
             <Route path="/login" component={Login} />
+            <Route path="/login/select" component={RSPO} />
 
           </Switch>
         </div>

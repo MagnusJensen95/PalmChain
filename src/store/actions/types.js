@@ -16,3 +16,5 @@ export const SET_RSPO_ADMIN = "@@SET_RSPO_ADMIN"
 //Authentication Related
 export const SET_AUTHENTICATED_TYPE = "@@SET_AUTHENTICATED_TYPE";
 export const AUTHENTICATE_USER = "@@AUTHENTICATE_USER";
+export const SET_ACCOUNTS_LIST = "@@SET_ACCOUNTS_LIST";
+export const SET_USER_ADDRESS = "@@SET_USER_ADDRESS";

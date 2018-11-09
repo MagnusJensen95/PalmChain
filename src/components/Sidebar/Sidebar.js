@@ -56,7 +56,10 @@ class TemporaryDrawer extends React.Component {
         const tabs = ["RSPO", "Plantation", "Mill"]
         const sideList = (
             <div className={classes.list}>
-                <List subheader={<ListSubheader className={classes.titleItem}  >Palm Chain</ListSubheader>}>
+                <List subheader={
+                <Link to={"/"} className={classes.navlink}>
+                <ListSubheader className={classes.titleItem}>Palm Chain</ListSubheader>
+                </Link>}>
 
                     {
                         tabs.map((text, index) => (

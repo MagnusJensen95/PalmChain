@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 export class Mill extends Component {
-    static propTypes = {
-        prop: PropTypes
-    }
 
     render() {
         return (

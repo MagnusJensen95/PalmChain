@@ -1,9 +1,11 @@
-import { SET_AUTHENTICATED_TYPE, AUTHENTICATE_USER } from "../actions/types";
-import { millOwner, rspoAdmin, plantationOwner, unauthorizedUser } from "../models/authentication";
+import { SET_AUTHENTICATED_TYPE, AUTHENTICATE_USER, SET_ACCOUNTS_LIST, SET_USER_ADDRESS } from "../actions/types";
+import { unauthorizedUser } from "../models/authentication";
 
 const initialState = {
     authType: unauthorizedUser,
-    authorized: false
+    authorized: false,
+    accounts: [],
+    userAddress: ""
 };
 
 const AuthenticationReducer = (state = initialState, action) => {
@@ -20,6 +22,19 @@ const AuthenticationReducer = (state = initialState, action) => {
                 authorized: action.authenticated
             };
         }
+        case SET_ACCOUNTS_LIST: {
+            return {
+                ...state,
+                accounts: action.accounts
+            };
+        }
+        case SET_USER_ADDRESS: {
+            return {
+                ...state,
+                userAddress: action.userAddress
+            };
+        }
+
 
         default:
             return state;
