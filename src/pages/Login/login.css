@@ -1,9 +1,11 @@
-.optionsList  {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.optionsList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.activeIndex {
-    background-color: 
+.signInContent {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

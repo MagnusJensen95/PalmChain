@@ -1,25 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
+import TopBar from "../../components/TopBar/TopBar";
 
 export class Plantation extends Component {
-
-
-    render() {
-        return (
-            <div>
-
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <TopBar title={"Plantation Overview"} />
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({});
 
-})
+const mapDispatchToProps = {};
 
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Plantation)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Plantation);

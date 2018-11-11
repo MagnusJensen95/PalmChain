@@ -31,15 +31,22 @@
 }
 
 .appContent {
-  margin-left: 250px;
   display: flex;
- 
 
-min-width: 850px;
-height: 1000px;
-margin-top: 50px;
-flex-direction: column;
-align-items: center;
+  min-width: 850px;
+  height: 1000px;
+  margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
+
+  box-shadow: 0 10px 6px -6px rgb(119, 119, 119);
+}
+
+.rightContainer {
+  margin-left: 250px;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
 }
 
 @keyframes App-logo-spin {

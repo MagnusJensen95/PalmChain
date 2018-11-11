@@ -1,114 +1,129 @@
 import {
-    SET_AUTHENTICATED_TYPE,
-    AUTHENTICATE_USER,
-    SET_ACCOUNTS_LIST,
-    SET_USER_ADDRESS
+  SET_AUTHENTICATED_TYPE,
+  AUTHENTICATE_USER,
+  SET_ACCOUNTS_LIST,
+  SET_USER_ADDRESS
 } from "./types";
 
-import consortiumDeployer from '../../utils/contractDeploymentInstance';
-import web3 from '../../utils/getWeb3';
-import consortiumInstance from '../../utils/consortiumInstance';
-import { plantationOwner, unauthorizedUser } from "../models/authentication";
-
-
-
-
+import web3 from "../../utils/getWeb3";
+import consortiumInstance from "../../utils/consortiumInstance";
+import {
+  plantationOwner,
+  unauthorizedUser,
+  millOwner,
+  rspoAdmin
+} from "../models/authentication";
+import { setRSPOAdministrator } from "./rspo";
 
 export const setAuthenticatedType = type => {
-    return {
-        type: SET_AUTHENTICATED_TYPE,
-        authType: type
-    };
+  return {
+    type: SET_AUTHENTICATED_TYPE,
+    authType: type
+  };
 };
 
 export const setAvailableAccounts = accounts => {
-    return {
-        type: SET_ACCOUNTS_LIST,
-        accounts: accounts
-    };
+  return {
+    type: SET_ACCOUNTS_LIST,
+    accounts: accounts
+  };
 };
 
-export const setUserAuthenticated = authenticated => {
-    return {
-        type: AUTHENTICATE_USER,
-        authorized: authenticated
-    };
+export const setUserAuthenticated = authorized => {
+  return {
+    type: AUTHENTICATE_USER,
+    authorized: authorized
+  };
 };
 
 export const setCurrentUserAddress = address => {
-    return {
-        type: SET_USER_ADDRESS,
-        userAddress: address
-    };
+  return {
+    type: SET_USER_ADDRESS,
+    userAddress: address
+  };
+};
+export const fetchAvailableAccounts = () => {
+  return async dispatch => {
+    var nus = await web3.eth.getAccounts();
+
+    dispatch(setAvailableAccounts(nus));
+  };
 };
 
-// export const authenticatePlantation = (address, consortiumInstanceIndex) => {
-//     return async dispatch => {
+export const authenticateUserAsType = (
+  type,
+  userAddress,
+  consortiumAddress
+) => {
+  return async dispatch => {
+    switch (type) {
+      case plantationOwner:
+        dispatch(authenticatePlantation(userAddress, consortiumAddress));
+        break;
+      case millOwner:
+        dispatch(authenticateMill(userAddress, consortiumAddress));
+        break;
+      case rspoAdmin:
+        dispatch(authenticateRSPO(userAddress, consortiumAddress));
 
-
-//         let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
-//             from: address
-//         })
-//         let consortiumInstance = consortiumInstance(consortiumAddress[consortiumInstanceIndex]);
-//         let registeredPlantation = await firstConsortiumInstance.methods.registeredPlantations(address).call({
-//             from: address
-//         })
-//         if (registeredPlantation) {
-//             dispatch(setAuthenticatedType(plantationOwner))
-//             dispatch(setUserAuthenticated(true))
-//         }
-//         else {
-//             dispatch(setAuthenticatedType(unauthorizedUser))
-//             dispatch(setUserAuthenticated(false))
-//         }
-
-//     }
-// }
-// export const authenticateRSPO = address => {
-//     return async dispatch => {
-
-
-//         let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
-//             from: address
-//         })
-//         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
-//         let admin = await firstConsortiumInstance.methods.RSPOAdministrator().call({
-//             from: address
-//         })
-
-//         dispatch(setRSPOAdministrator(admin))
-//     }
-// }
-
-export const fetchAvailableAccounts = () => {
-    return async dispatch => {
-
-        var nus = await web3.eth.getAccounts()
-     
-        dispatch(setAvailableAccounts(nus))
-
-
-
-
+        break;
+      default:
     }
-}
+  };
+};
 
-// export const authenticateMill = address => {
-//     return async dispatch => {
-//         let userAddress = await web3.eth.getAccounts();
+export const authenticatePlantation = (userAddress, consortiumAddress) => {
+  return async dispatch => {
+    let consortium = consortiumInstance(consortiumAddress);
+    let registeredPlantation = await consortium.methods
+      .registeredPlantations(userAddress)
+      .call({
+        from: userAddress
+      });
+    if (registeredPlantation) {
+      dispatch(setAuthenticatedType(plantationOwner));
+      dispatch(setUserAuthenticated(true));
+    } else {
+      dispatch(setAuthenticatedType(unauthorizedUser));
+      dispatch(setUserAuthenticated(false));
+    }
+  };
+};
+export const authenticateRSPO = (userAddress, consortiumAddress) => {
+  return async dispatch => {
+    let consortium = consortiumInstance(consortiumAddress);
 
-//         let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
-//             from: userAddress[0]
-//         })
-//         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
-//         let admin = await firstConsortiumInstance.methods.RSPOAdministrator().call({
-//             from: userAddress[0]
+    let admin = await consortium.methods.RSPOAdministrator().call({
+      from: userAddress
+    });
 
-//         })
+    if (admin === userAddress) {
+      dispatch(setAuthenticatedType(rspoAdmin));
 
-//         dispatch(setRSPOAdministrator(admin))
-//     }
-// }
+      dispatch(setUserAuthenticated(true));
+    } else {
+      dispatch(setAuthenticatedType(unauthorizedUser));
+      dispatch(setUserAuthenticated(false));
+    }
+    dispatch(setRSPOAdministrator(admin));
+  };
+};
 
+export const authenticateMill = (userAddress, consortiumAddress) => {
+  return async dispatch => {
+    let consortium = consortiumInstance(consortiumAddress);
+    let registeredMill = await consortium.methods.activeMill().call({
+      from: userAddress
+    });
 
+    console.log(registeredMill);
 
+    // if (activeMill) {
+    //   dispatch(setAuthenticatedType(millOwner));
+    //   dispatch(setUserAuthenticated(true));
+    // } else {
+    //   dispatch(setAuthenticatedType(unauthorizedUser));
+    //   dispatch(setUserAuthenticated(false));
+    // }
+  };
+};
