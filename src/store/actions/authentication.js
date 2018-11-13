@@ -50,6 +50,14 @@ export const fetchAvailableAccounts = () => {
   };
 };
 
+export const signUserOut = () => {
+  return dispatch => {
+    dispatch(setCurrentUserAddress(""));
+    dispatch(setUserAuthenticated(false));
+    dispatch(setAuthenticatedType(unauthorizedUser));
+  };
+};
+
 export const authenticateUserAsType = (
   type,
   userAddress,

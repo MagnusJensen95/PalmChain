@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -30,6 +30,7 @@ function TopBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {props.title}
           </Typography>
+          {props.children}
         </Toolbar>
       </AppBar>
     </div>

@@ -11,7 +11,8 @@ import {
 import {
   fetchAvailableAccounts,
   setCurrentUserAddress,
-  authenticateUserAsType
+  authenticateUserAsType,
+  signUserOut
 } from "../../store/actions/authentication";
 import web3 from "../../utils/getWeb3";
 import "./login.css";
@@ -52,10 +53,23 @@ export class Login extends Component {
 
   render() {
     const authtypes = [plantationOwner, millOwner, rspoAdmin];
-
+    const title = this.props.userAuthenticated
+      ? "Signed in as " + this.props.userType
+      : "Sign In";
+    const signOutButton = this.props.userAuthenticated ? (
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={() => this.props.onLogoutAttempt()}
+      >
+        Sign Out
+      </Button>
+    ) : (
+      <></>
+    );
     return (
       <div>
-        <TopBar title={"Sign In"} />
+        <TopBar title={title}>{signOutButton}</TopBar>
         <div className="signInContent">
           {!this.props.userAuthenticated ? (
             <div>
@@ -134,7 +148,8 @@ const mapDispatchToProps = dispatch => ({
   onLoginAttempt: (type, userAddress, consortiumAddress) =>
     dispatch(authenticateUserAsType(type, userAddress, consortiumAddress)),
   onSetCurrentAccounts: () => dispatch(fetchAvailableAccounts()),
-  onSelectUserAddress: address => dispatch(setCurrentUserAddress(address))
+  onSelectUserAddress: address => dispatch(setCurrentUserAddress(address)),
+  onLogoutAttempt: () => dispatch(signUserOut())
 });
 
 export default connect(

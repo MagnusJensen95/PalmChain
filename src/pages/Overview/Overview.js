@@ -6,8 +6,15 @@ import {
   fetchConsortiumAddresses,
   setSelectedConsortiumAddress
 } from "../../store/actions/consortiumlist";
-import { ListItem, List, ListItemText } from "@material-ui/core";
+import {
+  ListItem,
+  List,
+  ListItemText,
+  ListItemSecondaryAction,
+  Checkbox
+} from "@material-ui/core";
 import TopBar from "../../components/TopBar/TopBar";
+import { runInThisContext } from "vm";
 
 class Overview extends Component {
   componentDidMount() {
@@ -26,6 +33,9 @@ class Overview extends Component {
               onClick={() => this.props.onSetConsortiumAddress(element)}
             >
               <ListItemText primary={element} />
+              <ListItemSecondaryAction>
+                <Checkbox checked={element === this.props.consortiumAddress} />
+              </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>
@@ -35,7 +45,8 @@ class Overview extends Component {
 }
 
 const mapStateToProps = state => ({
-  consortiumList: state.consortiumListReducer.consortiumList
+  consortiumList: state.consortiumListReducer.consortiumList,
+  consortiumAddress: state.consortiumListReducer.selectedAddress
 });
 
 const mapDispatchToProps = dispatch => ({
