@@ -1,0 +1,677 @@
+{
+  "contractName": "Plantation",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "name": "_consortiumOwnerAddress",
+          "type": "address"
+        },
+        {
+          "name": "origin",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50604051604080610102833981018060405281019080805190602001909291908051906020019092919050505080600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050506035806100cd6000396000f3006080604052600080fd00a165627a7a7230582068328d5230a8305172fb9b26d510f2f9c67eed396064806224b4c191222d98d10029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a7230582068328d5230a8305172fb9b26d510f2f9c67eed396064806224b4c191222d98d10029",
+  "sourceMap": "57:244:2:-;;;139:157;8:9:-1;5:2;;;30:1;27;20:12;5:2;139:157:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;233:6;215:15;;:24;;;;;;;;;;;;;;;;;;264:23;246:4;;:42;;;;;;;;;;;;;;;;;;139:157;;57:244;;;;;;",
+  "deployedSourceMap": "57:244:2:-;;;;;",
+  "source": "pragma solidity ^0.4.0;\r\n\r\nimport './Consortium.sol';\r\n\r\ncontract Plantation {\r\n   \r\n    Consortium cons;\r\naddress plantationOwner;\r\n\r\n    constructor(address _consortiumOwnerAddress, address origin) public  {\r\n    plantationOwner = origin;\r\n    cons = Consortium(_consortiumOwnerAddress);\r\n    }  \r\n}",
+  "sourcePath": "C:\\Users\\MAG\\source\\repos\\Bachelor\\PalmChain\\Ethereum\\contracts\\Plantation.sol",
+  "ast": {
+    "absolutePath": "/C/Users/MAG/source/repos/Bachelor/PalmChain/Ethereum/contracts/Plantation.sol",
+    "exportedSymbols": {
+      "Plantation": [
+        597
+      ]
+    },
+    "id": 598,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 573,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/C/Users/MAG/source/repos/Bachelor/PalmChain/Ethereum/contracts/Consortium.sol",
+        "file": "./Consortium.sol",
+        "id": 574,
+        "nodeType": "ImportDirective",
+        "scope": 598,
+        "sourceUnit": 513,
+        "src": "27:26:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 597,
+        "linearizedBaseContracts": [
+          597
+        ],
+        "name": "Plantation",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 576,
+            "name": "cons",
+            "nodeType": "VariableDeclaration",
+            "scope": 597,
+            "src": "89:15:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Consortium_$512",
+              "typeString": "contract Consortium"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 575,
+              "name": "Consortium",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 512,
+              "src": "89:10:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Consortium_$512",
+                "typeString": "contract Consortium"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 578,
+            "name": "plantationOwner",
+            "nodeType": "VariableDeclaration",
+            "scope": 597,
+            "src": "107:23:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 577,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "107:7:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 595,
+              "nodeType": "Block",
+              "src": "208:88:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 587,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 585,
+                      "name": "plantationOwner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 578,
+                      "src": "215:15:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 586,
+                      "name": "origin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 582,
+                      "src": "233:6:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "215:24:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 588,
+                  "nodeType": "ExpressionStatement",
+                  "src": "215:24:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 593,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 589,
+                      "name": "cons",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 576,
+                      "src": "246:4:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Consortium_$512",
+                        "typeString": "contract Consortium"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 591,
+                          "name": "_consortiumOwnerAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 580,
+                          "src": "264:23:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 590,
+                        "name": "Consortium",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 512,
+                        "src": "253:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_Consortium_$512_$",
+                          "typeString": "type(contract Consortium)"
+                        }
+                      },
+                      "id": 592,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "253:35:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Consortium_$512",
+                        "typeString": "contract Consortium"
+                      }
+                    },
+                    "src": "246:42:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Consortium_$512",
+                      "typeString": "contract Consortium"
+                    }
+                  },
+                  "id": 594,
+                  "nodeType": "ExpressionStatement",
+                  "src": "246:42:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 596,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 583,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 580,
+                  "name": "_consortiumOwnerAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 596,
+                  "src": "151:31:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 579,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "151:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 582,
+                  "name": "origin",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 596,
+                  "src": "184:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 581,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "184:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "150:49:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 584,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "208:0:2"
+            },
+            "scope": 597,
+            "src": "139:157:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 598,
+        "src": "57:244:2"
+      }
+    ],
+    "src": "0:301:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/Users/MAG/source/repos/Bachelor/PalmChain/Ethereum/contracts/Plantation.sol",
+    "exportedSymbols": {
+      "Plantation": [
+        597
+      ]
+    },
+    "id": 598,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 573,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/C/Users/MAG/source/repos/Bachelor/PalmChain/Ethereum/contracts/Consortium.sol",
+        "file": "./Consortium.sol",
+        "id": 574,
+        "nodeType": "ImportDirective",
+        "scope": 598,
+        "sourceUnit": 513,
+        "src": "27:26:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 597,
+        "linearizedBaseContracts": [
+          597
+        ],
+        "name": "Plantation",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 576,
+            "name": "cons",
+            "nodeType": "VariableDeclaration",
+            "scope": 597,
+            "src": "89:15:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Consortium_$512",
+              "typeString": "contract Consortium"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 575,
+              "name": "Consortium",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 512,
+              "src": "89:10:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Consortium_$512",
+                "typeString": "contract Consortium"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 578,
+            "name": "plantationOwner",
+            "nodeType": "VariableDeclaration",
+            "scope": 597,
+            "src": "107:23:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 577,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "107:7:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 595,
+              "nodeType": "Block",
+              "src": "208:88:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 587,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 585,
+                      "name": "plantationOwner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 578,
+                      "src": "215:15:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 586,
+                      "name": "origin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 582,
+                      "src": "233:6:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "215:24:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 588,
+                  "nodeType": "ExpressionStatement",
+                  "src": "215:24:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 593,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 589,
+                      "name": "cons",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 576,
+                      "src": "246:4:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Consortium_$512",
+                        "typeString": "contract Consortium"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 591,
+                          "name": "_consortiumOwnerAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 580,
+                          "src": "264:23:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 590,
+                        "name": "Consortium",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 512,
+                        "src": "253:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_Consortium_$512_$",
+                          "typeString": "type(contract Consortium)"
+                        }
+                      },
+                      "id": 592,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "253:35:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Consortium_$512",
+                        "typeString": "contract Consortium"
+                      }
+                    },
+                    "src": "246:42:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Consortium_$512",
+                      "typeString": "contract Consortium"
+                    }
+                  },
+                  "id": 594,
+                  "nodeType": "ExpressionStatement",
+                  "src": "246:42:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 596,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 583,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 580,
+                  "name": "_consortiumOwnerAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 596,
+                  "src": "151:31:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 579,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "151:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 582,
+                  "name": "origin",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 596,
+                  "src": "184:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 581,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "184:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "150:49:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 584,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "208:0:2"
+            },
+            "scope": 597,
+            "src": "139:157:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 598,
+        "src": "57:244:2"
+      }
+    ],
+    "src": "0:301:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-11-15T09:40:38.034Z"
+}

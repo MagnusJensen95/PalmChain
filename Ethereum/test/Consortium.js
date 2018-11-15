@@ -1,5 +1,6 @@
 const Consortium = artifacts.require("Consortium");
 const ConsortiumDeployer = artifacts.require("ConsortiumDeployer");
+const Plantation = artifacts.require("Plantation");
 const truffleAssert = require("truffle-assertions");
 
 
@@ -29,6 +30,8 @@ mapResponseToCOToken = token => {
 
 contract("Consortium functionality test", async accounts => {
   let instance;
+  let plantationInstance;
+  let consortiumDeployerInstance
   let rspoAdmin = accounts[0];
   let millAddress = accounts[1];
   let plantationAddress = accounts[2];
@@ -59,7 +62,7 @@ contract("Consortium functionality test", async accounts => {
   };
 
   const deploy = async () => {
-    let consortiumDeployerInstance = await ConsortiumDeployer.new({
+    consortiumDeployerInstance = await ConsortiumDeployer.new({
       from: accounts[0]
     });
     await consortiumDeployerInstance.createConsortium({
@@ -69,8 +72,19 @@ contract("Consortium functionality test", async accounts => {
     let newConsortiumAddress = await consortiumDeployerInstance.getDeployedConsortiums({
       from: accounts[0]
     });
+
     let actualAddress = newConsortiumAddress[0];
+    await consortiumDeployerInstance.createPlantation(actualAddress, rspoAdmin, {
+      from: accounts[6]
+    });
+
+    let newPlantationAddress = await consortiumDeployerInstance.getDeployedPlantations({
+      from: accounts[0]
+    });
+    actualPlantationAddress = newPlantationAddress[0];
+
     instance = await Consortium.at(actualAddress)
+    plantationInstance = await Plantation.at(actualPlantationAddress)
     rspoAdmin = await instance.RSPOAdministrator.call();
   };
 
@@ -84,42 +98,32 @@ contract("Consortium functionality test", async accounts => {
   });
 
   it("should allow foreign plantations to request access", async () => {
-    let tx = await instance.requestPlantationSubscription(
-      plantation.name,
-      plantation.capacity,
-      plantation.longitude,
-      plantation.latitude,
+    let tx = await plantationInstance.requestPlantationSubscription(
+
       {
-        from: plantationAddress
+        from: accounts[6]
       }
     );
-    truffleAssert.eventEmitted(tx, "PlantationSubmissionRequested", ev => {
-      emittedEvent = ev;
-      return true;
-    });
+    let exists = await instance.pendingPlantationRequests(actualPlantationAddress)
 
-    assert.equal(emittedEvent.plantationAddressOrigin, plantationAddress);
+    assert.equal(exists, true);
   });
 
   it("should enable RSPO Admin to accept pending request", async () => {
-    let tx = await instance.requestPlantationSubscription(
-      plantation.name,
-      plantation.capacity,
-      plantation.longitude,
-      plantation.latitude,
+    let tx = await plantationInstance.requestPlantationSubscription(
       {
-        from: plantationAddress
+        from: accounts[6]
       }
     );
 
-    let txApprove = await instance.approvePlantationRequest(plantationAddress, {
+    let txApprove = await instance.approvePlantationRequest(actualPlantationAddress, {
       from: rspoAdmin
     });
 
-    truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
+    //  truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
 
-    let name = await instance.getPlantationAtAddress(plantationAddress);
-    assert.equal(name, plantation.name);
+    let approved = await plantationInstance.approvedByConsortium();
+    assert.equal(approved, true);
   });
 
   it("should allow RSPO admin to change current Mill instance", async () => {
@@ -138,26 +142,25 @@ contract("Consortium functionality test", async accounts => {
   });
 
   it("should allow an approved plantation to submit FFB Tokens", async () => {
-    let txRequest = await instance.requestPlantationSubscription(
-      plantation.name,
-      plantation.capacity,
-      plantation.longitude,
-      plantation.latitude,
+    let tx = await plantationInstance.requestPlantationSubscription(
+
       {
-        from: plantationAddress
+        from: accounts[6]
       }
     );
-    let txApprove = await instance.approvePlantationRequest(plantationAddress, {
+
+
+    let txApprove = await instance.approvePlantationRequest(actualPlantationAddress, {
       from: rspoAdmin
     });
-    truffleAssert.eventEmitted(txRequest, "PlantationSubmissionRequested");
-    truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
+    //truffleAssert.eventEmitted(txRequest, "PlantationSubmissionRequested");
+    //truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
 
-    let tokenSubmit = await instance.submitFFBToken(
+    let tokenSubmit = await plantationInstance.submitFFBToken(
       fruitToken.weight,
       fruitToken.harvestTimeStamp,
       {
-        from: plantationAddress
+        from: accounts[6]
       }
     );
     assert.ok(tokenSubmit);
@@ -186,32 +189,32 @@ contract("Consortium functionality test", async accounts => {
     assert.equal(milli[3], mill.name);
 
     //Plantation subscription flow
-    let txRequest = await instance.requestPlantationSubscription(
-      plantation.name,
-      plantation.capacity,
-      plantation.longitude,
-      plantation.latitude,
+    let tx = await plantationInstance.requestPlantationSubscription(
       {
-        from: plantationAddress
+        from: accounts[6]
       }
     );
-    let txApprove = await instance.approvePlantationRequest(plantationAddress, {
+    let txApprove = await instance.approvePlantationRequest(actualPlantationAddress, {
       from: rspoAdmin
     });
-    truffleAssert.eventEmitted(txRequest, "PlantationSubmissionRequested");
-    truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
+    //truffleAssert.eventEmitted(txRequest, "PlantationSubmissionRequested");
+    //truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
+
+
 
     /*-------------------------------------------------------------------------- */
+
 
     let indexArray = [];
     let fruitWeight = 0;
     for (let i = 0; i < 5; i++) {
       fruitWeight += fruitToken.weight + i;
-      let tokenSubmit = await instance.submitFFBToken(
+
+      let tokenSubmit = await plantationInstance.submitFFBToken(
         fruitToken.weight + i,
         fruitToken.harvestTimeStamp,
         {
-          from: plantationAddress
+          from: accounts[6]
         }
       );
 
@@ -224,6 +227,7 @@ contract("Consortium functionality test", async accounts => {
         }
       );
     }
+
 
     let COTokenRes = await instance.consumeFFBTokens(indexArray, {
       from: millAddress
@@ -248,5 +252,12 @@ contract("Consortium functionality test", async accounts => {
       assert.equal(resolvedToken.processed, true);
       assert.equal(resolvedToken.owner, millAddress);
     }
+  });
+
+  it("Should instantiate plantation with correct plantation owner", async () => {
+
+    let ownerAddress = await plantationInstance.plantationOwner();
+
+    assert.equal(accounts[6], ownerAddress)
   });
 });

@@ -1,5 +1,5 @@
 pragma solidity ^0.4.0;
-
+import './Plantation.sol';
 
 contract Consortium {
     
@@ -28,19 +28,19 @@ contract Consortium {
         
     }
     
-    struct Plantation {
-        address associatedAddress;
-        string name;
-        uint capacity;
-        string GPSLongitude;
-        string GPSLatitude;
+    // struct Plantation {
+    //     address associatedAddress;
+    //     string name;
+    //     uint capacity;
+    //     string GPSLongitude;
+    //     string GPSLatitude;
   
 
-        //Hash may be omitted in favor of address use
-     //   bytes32 plantationHash;
-        // Tokens? 
+    //     //Hash may be omitted in favor of address use
+    //  //   bytes32 plantationHash;
+    //     // Tokens? 
         
-    }
+    // }
     
     struct Mill {
         address associatedAddress;
@@ -66,15 +66,14 @@ contract Consortium {
     
     Mill public activeMill;
 
-    mapping (address => Plantation) public plantations;
+   mapping (address => bool) public plantations;
     
     mapping (address => bool) public registeredPlantations;
 
     mapping (address => bool) public certifiedPlantations;
 
-    mapping (address => address) public plantationPermit;
 
-    mapping (address => Plantation) public pendingPlantationRequests;
+     mapping (address => bool) public pendingPlantationRequests;
     
     // mapping (bytes32 => FFBToken) public FFBTokens;
 
@@ -106,38 +105,30 @@ contract Consortium {
     // }
     
     //Request addition of new Plantation to consortium
-    function requestPlantationSubscription(string name,
-        uint capacity,
-        string GPSLongitude,
-        string GPSLatitude
-      ) public {
+    function requestPlantationSubscription() public {
       
                 //msg.sender is assumed to be address of plantation
         require(!registeredPlantations[msg.sender], "Plantation is already registered");
 
-        Plantation memory newPlantation = Plantation({
-            associatedAddress: msg.sender,
-            name: name,
-            capacity: capacity,
-            GPSLatitude:GPSLatitude,
-            GPSLongitude:GPSLongitude
-         
-        });
         
-        emit PlantationSubmissionRequested(msg.sender);
+       // emit PlantationSubmissionRequested(msg.sender);
         
-        pendingPlantationRequests[msg.sender] = newPlantation;
+        pendingPlantationRequests[msg.sender] = true;
         
     }
     
-    function approvePlantationRequest(address requestOrigin) public onlyRSPOAdmin {
+    function approvePlantationRequest(address plantationToAdd) public onlyRSPOAdmin {
         
         //Index may be derived from planatation hash rather than passed with index
-        plantations[requestOrigin] = pendingPlantationRequests[requestOrigin];
-        certifiedPlantations[requestOrigin] = true;
-        registeredPlantations[requestOrigin] = true;
-        delete pendingPlantationRequests[requestOrigin];
-        emit PlantationSubmissionApproved(requestOrigin);
+
+        plantations[plantationToAdd] = true;
+        certifiedPlantations[plantationToAdd] = true;
+        registeredPlantations[plantationToAdd] = true;
+        delete pendingPlantationRequests[plantationToAdd];
+        emit PlantationSubmissionApproved(plantationToAdd);
+
+                 Plantation p = Plantation(plantationToAdd);
+                 p.setPlantationApproved(true, msg.sender);
         
     }
     
@@ -181,7 +172,9 @@ contract Consortium {
 
         FFBTokens.push(token);
 
-        emit FFBTokenSubmitted(msg.sender, activeMill.associatedAddress, FFBTokens.length -1);
+                 Plantation p = Plantation(msg.sender);
+             p.emitFFBEvent( activeMill.associatedAddress, FFBTokens.length -1);
+        //emit FFBTokenSubmitted(msg.sender, activeMill.associatedAddress, FFBTokens.length -1);
        
         }
 
@@ -240,12 +233,14 @@ contract Consortium {
 
     function revokePlantationAccess(address plantation) onlyRSPOAdmin public {
         delete registeredPlantations[plantation];
+          Plantation p = Plantation(plantation);
+                 p.setPlantationApproved(false, msg.sender);
+    }
+
+    function getPlantationAtAddress(address plantation) onlyRSPOAdmin public view returns(address){
+        return plantation;
         
     }
 
-    function getPlantationAtAddress(address plantation) onlyRSPOAdmin public view returns(string){
-        return plantations[plantation].name;
-        
-    }
-      
+ 
 }
