@@ -43,7 +43,7 @@ export class Login extends Component {
       this.props.history.push("/");
       return;
     }
-    this.props.onSelectUserAddress(this.state.authType);
+    this.props.onSelectUserAddress(userAddress);
     this.props.onLoginAttempt(
       this.state.authType,
       userAddress,
@@ -65,8 +65,8 @@ export class Login extends Component {
         Sign Out
       </Button>
     ) : (
-      <></>
-    );
+        <></>
+      );
     return (
       <div>
         <TopBar title={title}>{signOutButton}</TopBar>
@@ -86,8 +86,8 @@ export class Login extends Component {
               />
             </div>
           ) : (
-            <></>
-          )}
+              <></>
+            )}
         </div>
       </div>
     );

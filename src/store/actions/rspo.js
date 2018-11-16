@@ -3,7 +3,7 @@ import {
 
 } from "./types";
 
-import consortiumDeployer from '../../utils/contractDeploymentInstance';
+import { consortiumDeployer } from '../../utils/contractDeploymentInstance';
 import web3 from '../../utils/getWeb3';
 import consortiumInstance from '../../utils/consortiumInstance';
 
@@ -18,11 +18,14 @@ export const setRSPOAdministrator = name => {
     };
 };
 
-export const fetchRSPOAdministrator = () => {
+export const fetchRSPOAdministrator = (address) => {
     return async dispatch => {
         let userAddress = await web3.eth.getAccounts();
-
-        let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
+        let deployer = consortiumDeployer(address);
+        if (deployer === undefined) {
+            return;
+        }
+        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
             from: userAddress[0]
         })
         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
@@ -38,7 +41,11 @@ export const approvePlantationRequest = (address) => {
     return async dispatch => {
         let userAddress = await web3.eth.getAccounts();
 
-        let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
+        let deployer = consortiumDeployer(address);
+        if (deployer === undefined) {
+            return;
+        }
+        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
             from: userAddress[0]
         })
         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);

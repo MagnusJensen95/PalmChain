@@ -27,21 +27,7 @@ contract Consortium {
         bool processed;
         
     }
-    
-    // struct Plantation {
-    //     address associatedAddress;
-    //     string name;
-    //     uint capacity;
-    //     string GPSLongitude;
-    //     string GPSLatitude;
-  
 
-    //     //Hash may be omitted in favor of address use
-    //  //   bytes32 plantationHash;
-    //     // Tokens? 
-        
-    // }
-    
     struct Mill {
         address associatedAddress;
         string GPSLongitude;
@@ -67,6 +53,8 @@ contract Consortium {
     Mill public activeMill;
 
    mapping (address => bool) public plantations;
+
+   address[] public plantationAddresses;
     
     mapping (address => bool) public registeredPlantations;
 
@@ -111,7 +99,7 @@ contract Consortium {
         require(!registeredPlantations[msg.sender], "Plantation is already registered");
 
         
-       // emit PlantationSubmissionRequested(msg.sender);
+        emit PlantationSubmissionRequested(msg.sender);
         
         pendingPlantationRequests[msg.sender] = true;
         
@@ -122,13 +110,14 @@ contract Consortium {
         //Index may be derived from planatation hash rather than passed with index
 
         plantations[plantationToAdd] = true;
+        plantationAddresses.push(plantationToAdd);
         certifiedPlantations[plantationToAdd] = true;
         registeredPlantations[plantationToAdd] = true;
         delete pendingPlantationRequests[plantationToAdd];
         emit PlantationSubmissionApproved(plantationToAdd);
 
-                 Plantation p = Plantation(plantationToAdd);
-                 p.setPlantationApproved(true, msg.sender);
+        Plantation p = Plantation(plantationToAdd);
+        p.setPlantationApproved(true, msg.sender);
         
     }
     

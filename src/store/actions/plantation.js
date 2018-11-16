@@ -31,8 +31,11 @@ export const setSelectedPlantation = plantationAddress => {
 export const fetchTokensSubmitted = (address) => {
     return async dispatch => {
         let userAddress = await web3.eth.getAccounts();
-
-        let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
+        let deployer = consortiumDeployer();
+        if (deployer === undefined) {
+            return;
+        }
+        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
             from: userAddress[0]
         })
         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
@@ -48,8 +51,11 @@ export const fetchTokensSubmitted = (address) => {
 export const fetchIsPlantationApproved = (address) => {
     return async dispatch => {
         let userAddress = await web3.eth.getAccounts();
-
-        let consortiumAddress = await consortiumDeployer.methods.getDeployedConsortiums().call({
+        let deployer = consortiumDeployer();
+        if (deployer === undefined) {
+            return;
+        }
+        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
             from: userAddress[0]
         })
         let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);

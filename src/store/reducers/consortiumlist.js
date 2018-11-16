@@ -1,11 +1,15 @@
 import {
     SET_AVAILABLE_CONSORTIUMS,
-    SET_CURRENT_CONSORTIUM_ADDRESS
+    SET_CURRENT_CONSORTIUM_ADDRESS,
+    SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
+    SET_AVAILABLE_PLANTATIONS
 } from "../actions/types";
 
 const initialState = {
     consortiumList: [],
-    selectedAddress: ""
+    plantationList: [],
+    selectedAddress: "",
+    consortiumDeployerAddress: ""
 };
 
 const ConsortiumListReducer = (state = initialState, action) => {
@@ -14,6 +18,18 @@ const ConsortiumListReducer = (state = initialState, action) => {
             return {
                 ...state,
                 consortiumList: action.consortiumList
+            };
+        }
+        case SET_AVAILABLE_PLANTATIONS: {
+            return {
+                ...state,
+                plantationList: action.plantationList
+            };
+        }
+        case SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS: {
+            return {
+                ...state,
+                consortiumDeployerAddress: action.consortiumDeployerAddress
             };
         }
         case SET_CURRENT_CONSORTIUM_ADDRESS: {

@@ -6,7 +6,10 @@ import TopBar from "../../components/TopBar/TopBar";
 
 class RSPO extends Component {
   async componentDidMount() {
-    this.props.onFetchAdmin();
+    if (this.props.consortiumDeployerAddress !== "") {
+      // this.props.onFetchAdmin();
+    }
+
   }
 
   render() {
@@ -20,11 +23,12 @@ class RSPO extends Component {
 }
 
 const mapStateToProps = state => ({
-  adminAddress: state.rspoReducer.rspoAdministrator
+  adminAddress: state.rspoReducer.rspoAdministrator,
+  consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFetchAdmin: () => dispatch(fetchRSPOAdministrator())
+  onFetchAdmin: (deployerAddress) => dispatch(fetchRSPOAdministrator(deployerAddress))
 });
 
 export default connect(

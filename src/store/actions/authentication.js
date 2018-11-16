@@ -44,9 +44,9 @@ export const setCurrentUserAddress = address => {
 };
 export const fetchAvailableAccounts = () => {
   return async dispatch => {
-    var nus = await web3.eth.getAccounts();
+    var accounts = await web3.eth.getAccounts();
 
-    dispatch(setAvailableAccounts(nus));
+    dispatch(setAvailableAccounts(accounts));
   };
 };
 
@@ -107,7 +107,7 @@ export const authenticateRSPO = (userAddress, consortiumAddress) => {
 
     if (admin === userAddress) {
       dispatch(setAuthenticatedType(rspoAdmin));
-
+      
       dispatch(setUserAuthenticated(true));
     } else {
       dispatch(setAuthenticatedType(unauthorizedUser));
@@ -124,7 +124,7 @@ export const authenticateMill = (userAddress, consortiumAddress) => {
       from: userAddress
     });
 
-    console.log(registeredMill);
+
 
     // if (activeMill) {
     //   dispatch(setAuthenticatedType(millOwner));
