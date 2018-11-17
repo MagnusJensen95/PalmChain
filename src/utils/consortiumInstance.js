@@ -14,7 +14,7 @@ const consortiumInstance = (address) => {
         fromBlock: 0
     }, function (error, event) { console.log(event); })
         .on('data', function (event) {
-            console.log(event); // same results as the optional callback above
+            console.log("event"); // same results as the optional callback above
         })
         .on('changed', function (event) {
             // remove event from local database

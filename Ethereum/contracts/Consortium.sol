@@ -42,9 +42,7 @@ contract Consortium {
 
     //Events:
     event FFBTokenSubmitted(address owner, address newOwner, uint index);
-
     event COTokenSubmitted(address owner, address newOwner, uint index);
-
     event PlantationSubmissionRequested(address plantationAddressOrigin);
     event PlantationSubmissionApproved(address plantationAddressOrigin);
 
@@ -62,7 +60,7 @@ contract Consortium {
 
 
      mapping (address => bool) public pendingPlantationRequests;
-    
+     address[] public pendingPlantationRequestsArray;
     // mapping (bytes32 => FFBToken) public FFBTokens;
 
     FFBToken[] public FFBTokens;
@@ -102,6 +100,7 @@ contract Consortium {
         emit PlantationSubmissionRequested(msg.sender);
         
         pendingPlantationRequests[msg.sender] = true;
+        
         
     }
     

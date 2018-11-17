@@ -6,13 +6,16 @@ contract Plantation {
 
     Consortium private consortium;
     address public plantationOwner;
-    bool public approvedByConsortium;
-    bool public certifiedByConsortium;
-    string name;
+    bool public approvedByConsortium = false;
+    bool public certifiedByConsortium = false;
+    
     uint capacity;
     string GPSLongitude;
     string GPSlatitude; 
     address public RSPOAdministratorConsortium;
+
+    string public Name = "Unset Name";
+
 
     event FFBTokenSubmitted(address owner, address newOwner, uint index);
     mapping (address => address) public plantationPermit;
@@ -23,6 +26,27 @@ contract Plantation {
     RSPOAdministratorConsortium =rspoAdmin;
     consortium = Consortium(_consortiumOwnerAddress);
     }  
+
+    function setPlantationName(string name) public{
+        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        Name = name;
+    }
+
+    
+    function setPlantationLongitude(string GPSLongitudeParam) public {
+        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        GPSLongitude = GPSLongitudeParam;
+    }
+
+    
+    function setPlantationLatitude(string GPSlatitudeParam) public {
+        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        GPSlatitude = GPSlatitudeParam;
+    }
+
+     function getPlantationInformation() public view returns (string, bool, bool) {
+        return (Name, approvedByConsortium, certifiedByConsortium);
+    }
 
 
     //Request addition of this plantation to consortium origin

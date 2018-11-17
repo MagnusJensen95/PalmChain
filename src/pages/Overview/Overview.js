@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import web3 from "../../utils/getWeb3";
+
 import {
   fetchConsortiumAddresses,
   setSelectedConsortiumAddress,
@@ -32,12 +32,12 @@ class Overview extends Component {
   }
 
   deployPlantation() {
- 
+
 
     if (this.props.consortiumAddress === "" || this.props.userAuthenticationType !== rspoAdmin) {
       return;
     }
-  
+
 
     this.props.onAddPlantation(this.props.consortiumDeployerAddress, this.props.consortiumAddress, this.props.signedInUserAddress);
 

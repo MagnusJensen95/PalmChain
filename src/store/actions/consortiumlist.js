@@ -2,13 +2,15 @@ import {
     SET_AVAILABLE_CONSORTIUMS,
     SET_CURRENT_CONSORTIUM_ADDRESS,
     SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
-    SET_AVAILABLE_PLANTATIONS
+    SET_AVAILABLE_PLANTATIONS,
+    SET_PLANTATION_INFORMATION
 
 } from "./types";
 
 import { consortiumDeployer, deployNewConsortiumDeployer } from '../../utils/contractDeploymentInstance';
 import web3 from '../../utils/getWeb3';
 import consortiumInstance from "../../utils/consortiumInstance";
+import plantationInstance from "../../utils/plantationInstance";
 
 
 
@@ -43,6 +45,13 @@ export const setPlantationList = list => {
     };
 }
 
+export const setPlantationInformation = list => {
+    return {
+        type: SET_PLANTATION_INFORMATION,
+        plantationObjects: list
+    };
+}
+
 
 export const fetchConsortiumAddresses = address => {
     return async dispatch => {
@@ -60,19 +69,31 @@ export const fetchConsortiumAddresses = address => {
     }
 }
 
-export const fetchPlantationAddresses = address => {
+export const fetchPlantationAddresses = (deployerAddress, consortiumAddress, userAddress) => {
     return async dispatch => {
-        let userAddress = await web3.eth.getAccounts();
-        let deployer = consortiumDeployer(address);
+
+        let deployer = consortiumDeployer(deployerAddress);
         if (deployer === undefined) {
             return;
         }
-        let consortiumAddresses = await deployer.methods.getDeployedPlantations().call({
-            from: address
+        let plantationAddresses = await deployer.methods.getDeployedPlantationsByConsortium(consortiumAddress).call({
+            from: userAddress
         })
 
+        let informationArray = [];
+        for (let address of plantationAddresses) {
 
-        dispatch(setPlantationList(consortiumAddresses))
+
+            let plantationContract = plantationInstance(address);
+            let information = await plantationContract.methods.getPlantationInformation().call({
+                from: userAddress
+            });
+            informationArray.push(information);
+
+        }
+
+        dispatch(setPlantationInformation(informationArray));
+        dispatch(setPlantationList(plantationAddresses));
     }
 }
 
@@ -116,9 +137,12 @@ export const deployPlantation = (deployerAddress, consortiumAddress, rspoAddress
             gasPrice: 100000000000
         })
 
+        console.log(deployerAddress);
+        console.log(consortiumAddress);
+        console.log(rspoAddress);
 
 
-        dispatch(fetchPlantationAddresses(deployerAddress));
+        dispatch(fetchPlantationAddresses(deployerAddress, consortiumAddress, rspoAddress));
     }
 }
 

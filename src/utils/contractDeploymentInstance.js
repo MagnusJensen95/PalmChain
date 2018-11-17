@@ -17,7 +17,7 @@ export const deployNewConsortiumDeployer = async (userAddress) => {
     let instance = new web3.eth.Contract(ConsortiumDeployer.abi);
     let deployment = await instance.deploy({ data: ConsortiumDeployer.bytecode }).send({
         from: userAddress,
-        gas: 4712388,
+        gas: 47123880,
         gasPrice: 100000000000
 
     });

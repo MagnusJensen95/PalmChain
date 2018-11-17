@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchRSPOAdministrator } from "../../store/actions/rspo";
 import TopBar from "../../components/TopBar/TopBar";
+import './rspo.css'
+import { ListItem, ListItemText, ListItemSecondaryAction, Checkbox, List } from "@material-ui/core";
 
 class RSPO extends Component {
   async componentDidMount() {
@@ -13,10 +15,21 @@ class RSPO extends Component {
   }
 
   render() {
+
+    const plantationList = this.props.plantationAddresses.map((element, index) =>
+
+      <ListItem button onClick={() => { }}>
+        <ListItemText primary={element} />
+        <ListItemSecondaryAction>
+          <Checkbox checked={false} />
+        </ListItemSecondaryAction>
+      </ListItem>
+    )
     return (
       <div>
         <TopBar title={"RSPO Administrator page"} />
-        <button onClick={() => this.props.onFetchAdmin()}>jensen</button>
+        <List>{plantationList}</List>
+
       </div>
     );
   }
@@ -24,7 +37,9 @@ class RSPO extends Component {
 
 const mapStateToProps = state => ({
   adminAddress: state.rspoReducer.rspoAdministrator,
-  consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress
+  consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress,
+  plantationAddresses: state.consortiumListReducer.plantationList,
+  plantationObjects: state.consortiumListReducer.plantationObjects
 });
 
 const mapDispatchToProps = dispatch => ({

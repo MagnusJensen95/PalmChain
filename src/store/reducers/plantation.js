@@ -3,6 +3,10 @@ import {
 } from "../actions/types";
 
 const initialState = {
+    plantationSelected,
+    rspoAdminAssigned,
+    plantationProperties,
+    pendingRequests
 
 };
 
