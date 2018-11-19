@@ -141,7 +141,7 @@ const mapStateToProps = state => ({
   userAccounts: state.authenticationReducer.accounts,
   userAuthenticated: state.authenticationReducer.authorized,
   userType: state.authenticationReducer.authType,
-  selectedConsortiumAddress: state.consortiumListReducer.selectedAddress
+  selectedConsortiumAddress: state.consortiumListReducer.selectedConsortiumAddress
 });
 
 const mapDispatchToProps = dispatch => ({

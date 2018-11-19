@@ -7,13 +7,13 @@ contract Plantation {
     Consortium private consortium;
     address public plantationOwner;
     bool public approvedByConsortium = false;
-    bool public certifiedByConsortium = false;
+   // bool public certifiedByConsortium = false;
     
     uint capacity;
     string GPSLongitude;
     string GPSlatitude; 
     address public RSPOAdministratorConsortium;
-
+    bool public pendingApproval = false;
     string public Name = "Unset Name";
 
 
@@ -45,7 +45,7 @@ contract Plantation {
     }
 
      function getPlantationInformation() public view returns (string, bool, bool) {
-        return (Name, approvedByConsortium, certifiedByConsortium);
+        return (Name, approvedByConsortium, pendingApproval);
     }
 
 
@@ -55,6 +55,7 @@ contract Plantation {
     require(!approvedByConsortium, "This plantation has already been approved");
     require(msg.sender == plantationOwner, "Only owner may seek permission to enter consortium");
         consortium.requestPlantationSubscription();
+        pendingApproval = true;
     }
 
     function setPlantationApproved(bool approved, address origin) public {

@@ -11,6 +11,7 @@ import { consortiumDeployer, deployNewConsortiumDeployer } from '../../utils/con
 import web3 from '../../utils/getWeb3';
 import consortiumInstance from "../../utils/consortiumInstance";
 import plantationInstance from "../../utils/plantationInstance";
+import { mapToPlantation } from "../../utils/mappings";
 
 
 
@@ -27,7 +28,7 @@ export const setAvaibleConsortiumList = list => {
 export const setSelectedConsortiumAddress = address => {
     return {
         type: SET_CURRENT_CONSORTIUM_ADDRESS,
-        selectedAddress: address
+        selectedConsortiumAddress: address
     };
 };
 
@@ -88,12 +89,16 @@ export const fetchPlantationAddresses = (deployerAddress, consortiumAddress, use
             let information = await plantationContract.methods.getPlantationInformation().call({
                 from: userAddress
             });
+            information["address"] = address;
+            console.log(information);
+
+            information = mapToPlantation(information);
             informationArray.push(information);
 
         }
 
         dispatch(setPlantationInformation(informationArray));
-        dispatch(setPlantationList(plantationAddresses));
+
     }
 }
 
@@ -136,10 +141,6 @@ export const deployPlantation = (deployerAddress, consortiumAddress, rspoAddress
             gas: 4712388,
             gasPrice: 100000000000
         })
-
-        console.log(deployerAddress);
-        console.log(consortiumAddress);
-        console.log(rspoAddress);
 
 
         dispatch(fetchPlantationAddresses(deployerAddress, consortiumAddress, rspoAddress));

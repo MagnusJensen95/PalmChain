@@ -82,7 +82,7 @@ class Overview extends Component {
 
 const mapStateToProps = state => ({
   consortiumList: state.consortiumListReducer.consortiumList,
-  consortiumAddress: state.consortiumListReducer.selectedAddress,
+  consortiumAddress: state.consortiumListReducer.selectedConsortiumAddress,
   consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress,
   userAuthenticationType: state.authenticationReducer.authType,
   signedInUserAddress: state.authenticationReducer.userAddress

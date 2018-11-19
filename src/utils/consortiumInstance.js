@@ -19,7 +19,7 @@ const consortiumInstance = (address) => {
         .on('changed', function (event) {
             // remove event from local database
         })
-        .on('error', console.error);
+        .on('error', "console.error");
 
     return contract;
 }

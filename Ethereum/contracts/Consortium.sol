@@ -56,7 +56,8 @@ contract Consortium {
     
     mapping (address => bool) public registeredPlantations;
 
-    mapping (address => bool) public certifiedPlantations;
+//    Mapping below has been left out. May be relevant in future implementations. 
+//    mapping (address => bool) public certifiedPlantations;
 
 
      mapping (address => bool) public pendingPlantationRequests;
@@ -110,7 +111,7 @@ contract Consortium {
 
         plantations[plantationToAdd] = true;
         plantationAddresses.push(plantationToAdd);
-        certifiedPlantations[plantationToAdd] = true;
+        
         registeredPlantations[plantationToAdd] = true;
         delete pendingPlantationRequests[plantationToAdd];
         emit PlantationSubmissionApproved(plantationToAdd);
@@ -146,7 +147,9 @@ contract Consortium {
         //Find date løsning
         //Assume call comes from plantation contract => msg.sender is valid
         require(registeredPlantations[msg.sender], "Access Denied, no permission detected");
-        bool isCertified = certifiedPlantations[msg.sender] = true;  
+        
+        // Below may be changed if non certified plantations should be granted access.
+        bool isCertified = true;  
 
 
         FFBToken memory token = FFBToken({

@@ -10,7 +10,7 @@ const initialState = {
     consortiumList: [],
     plantationList: [],
     plantationObjects: [],
-    selectedAddress: "",
+    selectedConsortiumAddress: "",
     consortiumDeployerAddress: ""
 };
 
@@ -44,7 +44,7 @@ const ConsortiumListReducer = (state = initialState, action) => {
         case SET_CURRENT_CONSORTIUM_ADDRESS: {
             return {
                 ...state,
-                selectedAddress: action.selectedAddress
+                selectedConsortiumAddress: action.selectedConsortiumAddress
             };
         }
 

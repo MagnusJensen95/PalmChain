@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { fetchRSPOAdministrator } from "../../store/actions/rspo";
 import TopBar from "../../components/TopBar/TopBar";
 import './rspo.css'
-import { ListItem, ListItemText, ListItemSecondaryAction, Checkbox, List } from "@material-ui/core";
+import { ListItem, ListItemText, ListItemSecondaryAction, Checkbox, List, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@material-ui/core";
+import { rspoAdmin } from "../../store/models/authentication";
+
 
 class RSPO extends Component {
   async componentDidMount() {
@@ -13,32 +15,77 @@ class RSPO extends Component {
     }
 
   }
-
+  //  <List>{plantationList}</List>
   render() {
 
-    const plantationList = this.props.plantationAddresses.map((element, index) =>
 
-      <ListItem button onClick={() => { }}>
-        <ListItemText primary={element} />
-        <ListItemSecondaryAction>
-          <Checkbox checked={false} />
-        </ListItemSecondaryAction>
-      </ListItem>
-    )
+
     return (
       <div>
-        <TopBar title={"RSPO Administrator page"} />
-        <List>{plantationList}</List>
+        <TopBar title={"Plantations related to selected consortium"} />
 
+        <Paper>
+
+
+          {this.props.authType == rspoAdmin ? <PlantationTable className="plantationTable" plantationInstances={this.props.plantationObjects} /> : <div>You must sign in as RSPO administrator to view this page</div>}
+
+        </Paper>
       </div>
     );
   }
 }
 
+function PlantationTable(props) {
+
+
+  return (
+
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Name</TableCell>
+          <TableCell >Address</TableCell>
+          <TableCell >Approved</TableCell>
+          <TableCell >Pending Approval</TableCell>
+
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {props.plantationInstances.map((element, index) => {
+
+          let approvedCell = <></>;
+          if (!element.approved) {
+            approvedCell = (<Button variant="outlined" color="error">Revoke Approval</Button>)
+          }
+          else {
+            approvedCell = (element.pendingApproval ? <Button variant="outlined" color="primary">Approve</Button> : <div>No approval requested</div>)
+          }
+          return (
+
+            <TableRow key={element.address}>
+
+              <TableCell >{element.name}</TableCell>
+              <TableCell >{element.address}</TableCell>
+              <TableCell >
+                {element.approved ? "Yes" : "No"}
+              </TableCell>
+              <TableCell >{approvedCell}</TableCell>
+
+            </TableRow>
+
+          );
+        })}
+      </TableBody>
+    </Table>
+
+  );
+}
+
+
 const mapStateToProps = state => ({
   adminAddress: state.rspoReducer.rspoAdministrator,
   consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress,
-  plantationAddresses: state.consortiumListReducer.plantationList,
+  authType: state.authenticationReducer.authType,
   plantationObjects: state.consortiumListReducer.plantationObjects
 });
 
