@@ -14,6 +14,7 @@ import {
   rspoAdmin
 } from "../models/authentication";
 import { setRSPOAdministrator } from "./rspo";
+import { identifyPlantationAddressByOwner } from "./plantation";
 
 export const setAuthenticatedType = type => {
   return {
@@ -61,12 +62,13 @@ export const signUserOut = () => {
 export const authenticateUserAsType = (
   type,
   userAddress,
-  consortiumAddress
+  consortiumAddress,
+  deployerAddress
 ) => {
   return async dispatch => {
     switch (type) {
       case plantationOwner:
-        dispatch(authenticatePlantation(userAddress, consortiumAddress));
+        dispatch(authenticatePlantation(userAddress, consortiumAddress, deployerAddress));
         break;
       case millOwner:
         dispatch(authenticateMill(userAddress, consortiumAddress));
@@ -80,21 +82,26 @@ export const authenticateUserAsType = (
   };
 };
 
-export const authenticatePlantation = (userAddress, consortiumAddress) => {
+export const authenticatePlantation = (userAddress, consortiumAddress, deployerAddress) => {
   return async dispatch => {
-    let consortium = consortiumInstance(consortiumAddress);
-    let registeredPlantation = await consortium.methods
-      .registeredPlantations(userAddress)
-      .call({
-        from: userAddress
-      });
-    if (registeredPlantation) {
-      dispatch(setAuthenticatedType(plantationOwner));
-      dispatch(setUserAuthenticated(true));
-    } else {
-      dispatch(setAuthenticatedType(unauthorizedUser));
-      dispatch(setUserAuthenticated(false));
-    }
+
+    dispatch(setAuthenticatedType(plantationOwner));
+    dispatch(setUserAuthenticated(true));
+    dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress))
+
+    //Everyone is able to sign is as plantation owner, might not be able to see any plantations. 
+    // let consortium = consortiumInstance(consortiumAddress);
+    // let registeredPlantation = await consortium.methods
+    //   .registeredPlantations(userAddress)
+    //   .call({
+    //     from: userAddress
+    //   });
+    // if (registeredPlantation) {
+    //  // 
+    // } else {
+    //   dispatch(setAuthenticatedType(unauthorizedUser));
+    //   dispatch(setUserAuthenticated(false));
+    // }
   };
 };
 export const authenticateRSPO = (userAddress, consortiumAddress) => {
@@ -107,7 +114,7 @@ export const authenticateRSPO = (userAddress, consortiumAddress) => {
 
     if (admin === userAddress) {
       dispatch(setAuthenticatedType(rspoAdmin));
-      
+
       dispatch(setUserAuthenticated(true));
     } else {
       dispatch(setAuthenticatedType(unauthorizedUser));

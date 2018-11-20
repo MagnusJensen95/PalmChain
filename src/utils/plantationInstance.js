@@ -4,7 +4,7 @@ import Plantation from "../contracts/Plantation.json";
 import web3 from './getWeb3';
 
 
-const plantationInstance = (address) => {
+export const plantationInstance = (address) => {
     if (address === undefined) {
         return;
     }
@@ -15,4 +15,3 @@ const plantationInstance = (address) => {
     return contract;
 }
 
-export default plantationInstance;

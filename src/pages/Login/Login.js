@@ -27,7 +27,7 @@ import TopBar from "../../components/TopBar/TopBar";
 export class Login extends Component {
   state = {
     typeSelected: false,
-    authType: rspoAdmin,
+    authType: plantationOwner,
     selectedIndex: 0
   };
 
@@ -47,7 +47,8 @@ export class Login extends Component {
     this.props.onLoginAttempt(
       this.state.authType,
       userAddress,
-      this.props.selectedConsortiumAddress
+      this.props.selectedConsortiumAddress,
+      this.props.deployerAddress
     );
   };
 
@@ -141,12 +142,13 @@ const mapStateToProps = state => ({
   userAccounts: state.authenticationReducer.accounts,
   userAuthenticated: state.authenticationReducer.authorized,
   userType: state.authenticationReducer.authType,
-  selectedConsortiumAddress: state.consortiumListReducer.selectedConsortiumAddress
+  selectedConsortiumAddress: state.consortiumListReducer.selectedConsortiumAddress,
+  deployerAddress: state.consortiumListReducer.consortiumDeployerAddress
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoginAttempt: (type, userAddress, consortiumAddress) =>
-    dispatch(authenticateUserAsType(type, userAddress, consortiumAddress)),
+  onLoginAttempt: (type, userAddress, consortiumAddress, deployerAddress) =>
+    dispatch(authenticateUserAsType(type, userAddress, consortiumAddress, deployerAddress)),
   onSetCurrentAccounts: () => dispatch(fetchAvailableAccounts()),
   onSelectUserAddress: address => dispatch(setCurrentUserAddress(address)),
   onLogoutAttempt: () => dispatch(signUserOut())

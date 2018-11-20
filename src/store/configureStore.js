@@ -5,6 +5,7 @@ import {
 import rspo from './reducers/rspo'
 import AuthenticationReducer from './reducers/authentication';
 import ConsortiumListReducer from './reducers/consortiumlist';
+import PlantationReducer from './reducers/plantation';
 
 
 
@@ -12,7 +13,8 @@ import ConsortiumListReducer from './reducers/consortiumlist';
 const rootReducer = combineReducers({
   rspoReducer: rspo,
   authenticationReducer: AuthenticationReducer,
-  consortiumListReducer: ConsortiumListReducer
+  consortiumListReducer: ConsortiumListReducer,
+  plantationReducer: PlantationReducer
 });
 
 

@@ -3,7 +3,7 @@ import {
     SET_CURRENT_CONSORTIUM_ADDRESS,
     SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
     SET_AVAILABLE_PLANTATIONS,
-    SET_PLANTATION_INFORMATION
+    SET_PLANTATION_INFORMATION_LIST
 } from "../actions/types";
 
 const initialState = {
@@ -29,7 +29,7 @@ const ConsortiumListReducer = (state = initialState, action) => {
             };
         }
 
-        case SET_PLANTATION_INFORMATION: {
+        case SET_PLANTATION_INFORMATION_LIST: {
             return {
                 ...state,
                 plantationObjects: action.plantationObjects

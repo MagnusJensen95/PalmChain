@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import TopBar from "../../components/TopBar/TopBar";
 import './overview.css'
-import { rspoAdmin } from "../../store/models/authentication";
+import { rspoAdmin, unauthorizedUser } from "../../store/models/authentication";
 
 
 class Overview extends Component {
@@ -34,7 +34,8 @@ class Overview extends Component {
   deployPlantation() {
 
 
-    if (this.props.consortiumAddress === "" || this.props.userAuthenticationType !== rspoAdmin) {
+    if (this.props.consortiumAddress === "" || this.props.userAuthenticationType === unauthorizedUser) {
+      alert("you must sign in to deploy a new plantation!");
       return;
     }
 

@@ -54,7 +54,7 @@ function PlantationTable(props) {
         {props.plantationInstances.map((element, index) => {
 
           let approvedCell = <></>;
-          if (!element.approved) {
+          if (element.approved) {
             approvedCell = (<Button variant="outlined" color="error">Revoke Approval</Button>)
           }
           else {

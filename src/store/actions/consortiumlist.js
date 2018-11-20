@@ -3,14 +3,14 @@ import {
     SET_CURRENT_CONSORTIUM_ADDRESS,
     SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
     SET_AVAILABLE_PLANTATIONS,
-    SET_PLANTATION_INFORMATION
+    SET_PLANTATION_INFORMATION_LIST
 
 } from "./types";
 
 import { consortiumDeployer, deployNewConsortiumDeployer } from '../../utils/contractDeploymentInstance';
 import web3 from '../../utils/getWeb3';
 import consortiumInstance from "../../utils/consortiumInstance";
-import plantationInstance from "../../utils/plantationInstance";
+import { plantationInstance } from "../../utils/plantationInstance";
 import { mapToPlantation } from "../../utils/mappings";
 
 
@@ -46,9 +46,9 @@ export const setPlantationList = list => {
     };
 }
 
-export const setPlantationInformation = list => {
+export const setPlantationInformationList = list => {
     return {
-        type: SET_PLANTATION_INFORMATION,
+        type: SET_PLANTATION_INFORMATION_LIST,
         plantationObjects: list
     };
 }
@@ -90,14 +90,14 @@ export const fetchPlantationAddresses = (deployerAddress, consortiumAddress, use
                 from: userAddress
             });
             information["address"] = address;
-            console.log(information);
+
 
             information = mapToPlantation(information);
             informationArray.push(information);
 
         }
 
-        dispatch(setPlantationInformation(informationArray));
+        dispatch(setPlantationInformationList(informationArray));
 
     }
 }

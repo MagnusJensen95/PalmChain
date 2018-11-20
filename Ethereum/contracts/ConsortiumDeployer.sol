@@ -12,6 +12,9 @@ contract ConsortiumDeployer {
 // plantationAddress => consortiumaddress
     mapping (address => address) public plantationRelations;
 
+// Mapping: owneraddress => plantationaddress, only enables ownership of one plantation.
+    mapping (address => address) public plantationOwnerRelation;
+
     constructor() public {
         rspoAdministrators[msg.sender] = true;
     }
@@ -25,6 +28,7 @@ contract ConsortiumDeployer {
        function createPlantation(address _assignedConsortium, address administrator) public {
         address newPlantation = new Plantation(_assignedConsortium, msg.sender, administrator);
         plantationRelations[newPlantation] = _assignedConsortium;
+        plantationOwnerRelation[msg.sender] = newPlantation;
         deployedPlantations.push(newPlantation);
     }
 

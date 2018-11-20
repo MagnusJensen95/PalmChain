@@ -21,8 +21,8 @@ contract Plantation {
     mapping (address => address) public plantationPermit;
 
 
-    constructor(address _consortiumOwnerAddress, address origin, address rspoAdmin) public {
-    plantationOwner = origin;
+    constructor(address _consortiumOwnerAddress, address assignedPlantationOwner, address rspoAdmin) public {
+    plantationOwner = assignedPlantationOwner;
     RSPOAdministratorConsortium =rspoAdmin;
     consortium = Consortium(_consortiumOwnerAddress);
     }  
@@ -44,8 +44,8 @@ contract Plantation {
         GPSlatitude = GPSlatitudeParam;
     }
 
-     function getPlantationInformation() public view returns (string, bool, bool) {
-        return (Name, approvedByConsortium, pendingApproval);
+     function getPlantationInformation() public view returns (string, bool, bool, address) {
+        return (Name, approvedByConsortium, pendingApproval, plantationOwner);
     }
 
 
