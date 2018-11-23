@@ -1,61 +1,62 @@
-import {
-    SET_RSPO_ADMIN
+import { SET_RSPO_ADMIN } from "./types";
 
-} from "./types";
-
-import { consortiumDeployer } from '../../utils/contractDeploymentInstance';
-import web3 from '../../utils/getWeb3';
-import consortiumInstance from '../../utils/consortiumInstance';
-
-
-
-
+import { consortiumDeployer } from "../../utils/contractDeploymentInstance";
+import web3 from "../../utils/getWeb3";
+import { consortiumInstance } from "../../utils/consortiumInstance";
+import { fetchPlantationInformation } from "./plantation";
+import { fetchPlantationAddresses } from "./consortiumlist";
 
 export const setRSPOAdministrator = name => {
-    return {
-        type: SET_RSPO_ADMIN,
-        rspoAdministrator: name
-    };
+  return {
+    type: SET_RSPO_ADMIN,
+    rspoAdministrator: name
+  };
 };
 
-export const fetchRSPOAdministrator = (address) => {
-    return async dispatch => {
-        let userAddress = await web3.eth.getAccounts();
-        let deployer = consortiumDeployer(address);
-        if (deployer === undefined) {
-            return;
-        }
-        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
-            from: userAddress[0]
-        })
-        let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
-        let admin = await firstConsortiumInstance.methods.RSPOAdministrator().call({
-            from: userAddress[0]
-        })
+export const fetchRSPOAdministrator = consortiumAddress => {
+  return async (dispatch, getState) => {
+    let userAddress = getState().authenticationReducer.userAddress;
 
-        dispatch(setRSPOAdministrator(admin))
+    let consortiumInstanceSelected = consortiumInstance(consortiumAddress);
+    let admin = await consortiumInstanceSelected.methods
+      .RSPOAdministrator()
+      .call({
+        from: userAddress
+      });
+
+    dispatch(setRSPOAdministrator(admin));
+  };
+};
+
+export const approvePlantationRequest = plantationAddress => {
+  return async (dispatch, getState) => {
+    let user = getState().authenticationReducer.userAddress;
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+
+    let consortium = consortiumInstance(consortiumAddress);
+    if (consortium === undefined) {
+      return;
     }
-}
+    console.log(user);
 
-export const approvePlantationRequest = (address) => {
-    return async dispatch => {
-        let userAddress = await web3.eth.getAccounts();
+    let rspoDude = await consortium.methods.RSPOAdministrator().call({
+      from: user
+    });
+    console.log(rspoDude);
+    let tx = await consortium.methods
+      .approvePlantationRequest(plantationAddress)
+      .send({
+        from: user,
+        gas: 4712388,
+        gasPrice: 100000000000
+      });
 
-        let deployer = consortiumDeployer(address);
-        if (deployer === undefined) {
-            return;
-        }
-        let consortiumAddress = await deployer.methods.getDeployedConsortiums().call({
-            from: userAddress[0]
-        })
-        let firstConsortiumInstance = consortiumInstance(consortiumAddress[0]);
-        let admin = await firstConsortiumInstance.methods.RSPOAdministrator().call({
-            from: userAddress[0]
-        })
+    let deployerAddress = getState().consortiumListReducer
+      .consortiumDeployerAddress;
 
-        dispatch(setRSPOAdministrator(admin))
-    }
-}
-
-
-
+    dispatch(
+      fetchPlantationAddresses(deployerAddress, consortiumAddress, user)
+    );
+  };
+};

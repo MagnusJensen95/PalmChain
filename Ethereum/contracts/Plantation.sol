@@ -23,7 +23,7 @@ contract Plantation {
 
     constructor(address _consortiumOwnerAddress, address assignedPlantationOwner, address rspoAdmin) public {
     plantationOwner = assignedPlantationOwner;
-    RSPOAdministratorConsortium =rspoAdmin;
+    RSPOAdministratorConsortium = rspoAdmin;
     consortium = Consortium(_consortiumOwnerAddress);
     }  
 

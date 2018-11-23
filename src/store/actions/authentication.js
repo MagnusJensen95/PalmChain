@@ -6,7 +6,7 @@ import {
 } from "./types";
 
 import web3 from "../../utils/getWeb3";
-import consortiumInstance from "../../utils/consortiumInstance";
+import { consortiumInstance } from "../../utils/consortiumInstance";
 import {
   plantationOwner,
   unauthorizedUser,
@@ -14,6 +14,7 @@ import {
   rspoAdmin
 } from "../models/authentication";
 import { setRSPOAdministrator } from "./rspo";
+import { fetchPlantationAddresses } from "./consortiumlist";
 import { identifyPlantationAddressByOwner } from "./plantation";
 
 export const setAuthenticatedType = type => {
@@ -65,10 +66,16 @@ export const authenticateUserAsType = (
   consortiumAddress,
   deployerAddress
 ) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     switch (type) {
       case plantationOwner:
-        dispatch(authenticatePlantation(userAddress, consortiumAddress, deployerAddress));
+        dispatch(
+          authenticatePlantation(
+            userAddress,
+            consortiumAddress,
+            deployerAddress
+          )
+        );
         break;
       case millOwner:
         dispatch(authenticateMill(userAddress, consortiumAddress));
@@ -82,14 +89,17 @@ export const authenticateUserAsType = (
   };
 };
 
-export const authenticatePlantation = (userAddress, consortiumAddress, deployerAddress) => {
+export const authenticatePlantation = (
+  userAddress,
+  consortiumAddress,
+  deployerAddress
+) => {
   return async dispatch => {
-
     dispatch(setAuthenticatedType(plantationOwner));
     dispatch(setUserAuthenticated(true));
-    dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress))
+    dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
 
-    //Everyone is able to sign is as plantation owner, might not be able to see any plantations. 
+    //Everyone is able to sign is as plantation owner, might not be able to see any plantations.
     // let consortium = consortiumInstance(consortiumAddress);
     // let registeredPlantation = await consortium.methods
     //   .registeredPlantations(userAddress)
@@ -97,7 +107,7 @@ export const authenticatePlantation = (userAddress, consortiumAddress, deployerA
     //     from: userAddress
     //   });
     // if (registeredPlantation) {
-    //  // 
+    //  //
     // } else {
     //   dispatch(setAuthenticatedType(unauthorizedUser));
     //   dispatch(setUserAuthenticated(false));
@@ -105,7 +115,7 @@ export const authenticatePlantation = (userAddress, consortiumAddress, deployerA
   };
 };
 export const authenticateRSPO = (userAddress, consortiumAddress) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     let consortium = consortiumInstance(consortiumAddress);
 
     let admin = await consortium.methods.RSPOAdministrator().call({
@@ -114,7 +124,13 @@ export const authenticateRSPO = (userAddress, consortiumAddress) => {
 
     if (admin === userAddress) {
       dispatch(setAuthenticatedType(rspoAdmin));
-
+      dispatch(
+        fetchPlantationAddresses(
+          getState().consortiumListReducer.consortiumDeployerAddress,
+          consortiumAddress,
+          admin
+        )
+      );
       dispatch(setUserAuthenticated(true));
     } else {
       dispatch(setAuthenticatedType(unauthorizedUser));
@@ -130,8 +146,6 @@ export const authenticateMill = (userAddress, consortiumAddress) => {
     let registeredMill = await consortium.methods.activeMill().call({
       from: userAddress
     });
-
-
 
     // if (activeMill) {
     //   dispatch(setAuthenticatedType(millOwner));

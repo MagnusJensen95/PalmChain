@@ -91,6 +91,10 @@ export const submitFFBToken = (token, userAddress) => {
 export const requestConsortiumApproval = (plantationAddress, userAddress) => {
   return async dispatch => {
     let plantation = plantationInstance(plantationAddress);
+    if (plantation._address === null) {
+      alert("you do not have a plantation assigned yet");
+      return;
+    }
     plantation.methods.requestPlantationSubscription().send({
       from: userAddress,
       gas: 4712388,
