@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   fetchRSPOAdministrator,
-  approvePlantationRequest
+  approvePlantationRequest,
+  revokePlantationAccess
 } from "../../store/actions/rspo";
 import TopBar from "../../components/TopBar/TopBar";
 import "./rspo.css";
@@ -42,6 +43,9 @@ class RSPO extends Component {
               className="plantationTable"
               onApproveRequest={address => this.props.onApproveRequest(address)}
               plantationInstances={this.props.plantationObjects}
+              onRevokeAccess={plantationAddress =>
+                this.props.revokePlantationAddress(plantationAddress)
+              }
             />
           ) : (
             <div>You must sign in as RSPO administrator to view this page</div>
@@ -68,7 +72,11 @@ function PlantationTable(props) {
           let approvedCell = <></>;
           if (element.approved) {
             approvedCell = (
-              <Button variant="outlined" color="secondary">
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => props.onRevokeAccess(element.address)}
+              >
                 Revoke Approval
               </Button>
             );
@@ -112,7 +120,9 @@ const mapDispatchToProps = dispatch => ({
   onFetchAdmin: deployerAddress =>
     dispatch(fetchRSPOAdministrator(deployerAddress)),
   onApproveRequest: plantationAddress =>
-    dispatch(approvePlantationRequest(plantationAddress))
+    dispatch(approvePlantationRequest(plantationAddress)),
+  revokePlantationAddress: plantationAddress =>
+    dispatch(revokePlantationAccess(plantationAddress))
 });
 
 export default connect(

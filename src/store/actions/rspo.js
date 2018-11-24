@@ -28,6 +28,32 @@ export const fetchRSPOAdministrator = consortiumAddress => {
   };
 };
 
+export const revokePlantationAccess = plantationAddress => {
+  return async (dispatch, getState) => {
+    let rspoAddress = getState().rspoReducer.rspoAdministrator;
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+    let consortiumDeployerAddress = getState().consortiumListReducer
+      .consortiumDeployerAddress;
+
+    let consortiumInstanceSelected = consortiumInstance(consortiumAddress);
+    let admin = await consortiumInstanceSelected.methods
+      .revokePlantationAccess(plantationAddress)
+      .send({
+        from: rspoAddress,
+        gas: 4712388,
+        gasPrice: 100000000000
+      });
+    dispatch(
+      fetchPlantationAddresses(
+        consortiumDeployerAddress,
+        consortiumAddress,
+        rspoAddress
+      )
+    );
+  };
+};
+
 export const approvePlantationRequest = plantationAddress => {
   return async (dispatch, getState) => {
     let user = getState().authenticationReducer.userAddress;
@@ -38,12 +64,11 @@ export const approvePlantationRequest = plantationAddress => {
     if (consortium === undefined) {
       return;
     }
-    console.log(user);
 
     let rspoDude = await consortium.methods.RSPOAdministrator().call({
       from: user
     });
-    console.log(rspoDude);
+
     let tx = await consortium.methods
       .approvePlantationRequest(plantationAddress)
       .send({
