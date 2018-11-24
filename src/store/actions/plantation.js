@@ -52,6 +52,7 @@ export const identifyPlantationAddressByOwner = (
       });
 
     if (isZeroAddress(plantationAddress)) {
+      dispatch(setPlantationProperties({}));
       return;
     }
     let plantation = plantationInstance(plantationAddress);

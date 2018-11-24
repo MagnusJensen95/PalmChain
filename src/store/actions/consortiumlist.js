@@ -15,6 +15,11 @@ import consortiumInstance from "../../utils/consortiumInstance";
 import { plantationInstance } from "../../utils/plantationInstance";
 import { mapToPlantation } from "../../utils/mappings";
 import { fetchRSPOAdministrator } from "./rspo";
+import {
+  fetchPlantationInformation,
+  identifyPlantationAddressByOwner
+} from "./plantation";
+import { plantationOwner } from "../models/authentication";
 
 export const setAvaibleConsortiumList = list => {
   return {
@@ -80,7 +85,7 @@ export const fetchPlantationAddresses = (
   consortiumAddress,
   userAddress
 ) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     let deployer = consortiumDeployer(deployerAddress);
     if (deployer === undefined) {
       return;
@@ -105,6 +110,10 @@ export const fetchPlantationAddresses = (
       informationArray.push(information);
     }
 
+    let userType = getState().authenticationReducer.authType;
+    console.log(userType);
+
+    dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
     dispatch(setPlantationInformationList(informationArray));
   };
 };

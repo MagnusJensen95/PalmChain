@@ -11,6 +11,7 @@ import {
 import { isZeroAddress } from "../../utils/mappings";
 import { plantationOwner } from "../../store/models/authentication";
 import { Button } from "@material-ui/core";
+import "./plantation.css";
 
 export class Plantation extends Component {
   componentDidMount() {
@@ -40,20 +41,47 @@ export class Plantation extends Component {
     );
   }
   render() {
-    const requestApprovalButton = (
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() =>
-          this.props.onRequestApproval(
-            this.props.plantationAddress,
-            this.props.userAddress
-          )
-        }
-      >
-        Request Approval
-      </Button>
-    );
+    let requestApprovalButton;
+    if (
+      !this.props.plantationInformation.approved &&
+      !this.props.plantationInformation.pendingApproval
+    ) {
+      requestApprovalButton = (
+        <div className="requestButtonContainer">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() =>
+              this.props.onRequestApproval(
+                this.props.plantationAddress,
+                this.props.userAddress
+              )
+            }
+          >
+            Request Approval
+          </Button>
+        </div>
+      );
+    } else if (this.props.plantationInformation.pendingApproval) {
+      requestApprovalButton = (
+        <div className="requestButtonContainer">
+          <Button
+            variant="outlined"
+            color="primary"
+            disabled
+            onClick={() =>
+              this.props.onRequestApproval(
+                this.props.plantationAddress,
+                this.props.userAddress
+              )
+            }
+          >
+            Plantation request is pending approval
+          </Button>
+        </div>
+      );
+    }
+
     return (
       <div>
         <TopBar title={"Plantation Overview"} />
