@@ -3,7 +3,8 @@ import {
     SET_CURRENT_CONSORTIUM_ADDRESS,
     SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
     SET_AVAILABLE_PLANTATIONS,
-    SET_PLANTATION_INFORMATION_LIST
+    SET_PLANTATION_INFORMATION_LIST,
+    RESET
 } from "../actions/types";
 
 const initialState = {
@@ -47,6 +48,9 @@ const ConsortiumListReducer = (state = initialState, action) => {
                 selectedConsortiumAddress: action.selectedConsortiumAddress
             };
         }
+        // case RESET: {
+        //     return initialState;
+        // }
 
         default:
             return state;

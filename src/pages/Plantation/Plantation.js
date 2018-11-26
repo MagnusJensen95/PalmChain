@@ -12,6 +12,7 @@ import { isZeroAddress } from "../../utils/mappings";
 import { plantationOwner } from "../../store/models/authentication";
 import { Button } from "@material-ui/core";
 import "./plantation.css";
+import TokenForm from "./TokenForm";
 
 export class Plantation extends Component {
   componentDidMount() {
@@ -86,10 +87,12 @@ export class Plantation extends Component {
       <div>
         <TopBar title={"Plantation Overview"} />
         {this.props.userAuthType === plantationOwner ? (
-          requestApprovalButton
+
+          this.props.plantationInformation.approved ? <div> <TokenForm onSubmit={() => console.log("submittinh")} /></div> :
+            requestApprovalButton
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </div>
     );
   }

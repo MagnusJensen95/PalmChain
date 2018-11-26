@@ -1,4 +1,4 @@
-import { SET_TOKENS_SUBMITTED, SET_PLANTATION_INFORMATION, SET_CURRENT_PLANTATION } from "../actions/types";
+import { SET_TOKENS_SUBMITTED, SET_PLANTATION_INFORMATION, SET_CURRENT_PLANTATION, RESET } from "../actions/types";
 
 const initialState = {
     plantationAddress: "",
@@ -29,7 +29,9 @@ const PlantationReducer = (state = initialState, action) => {
                 plantationAddress: action.plantationAddress
             };
         }
-
+        case RESET: {
+            return initialState;
+        }
 
         default:
             return state;

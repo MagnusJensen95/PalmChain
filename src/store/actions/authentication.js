@@ -2,7 +2,8 @@ import {
   SET_AUTHENTICATED_TYPE,
   AUTHENTICATE_USER,
   SET_ACCOUNTS_LIST,
-  SET_USER_ADDRESS
+  SET_USER_ADDRESS,
+  RESET
 } from "./types";
 
 import web3 from "../../utils/getWeb3";
@@ -14,8 +15,8 @@ import {
   rspoAdmin
 } from "../models/authentication";
 import { setRSPOAdministrator } from "./rspo";
-import { fetchPlantationAddresses } from "./consortiumlist";
-import { identifyPlantationAddressByOwner } from "./plantation";
+import { fetchPlantationAddresses, setPlantationList } from "./consortiumlist";
+import { identifyPlantationAddressByOwner, setPlantationProperties } from "./plantation";
 
 export const setAuthenticatedType = type => {
   return {
@@ -57,6 +58,8 @@ export const signUserOut = () => {
     dispatch(setCurrentUserAddress(""));
     dispatch(setUserAuthenticated(false));
     dispatch(setAuthenticatedType(unauthorizedUser));
+    dispatch({ type: RESET });
+
   };
 };
 
