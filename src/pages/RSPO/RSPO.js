@@ -9,22 +9,28 @@ import {
 import TopBar from "../../components/TopBar/TopBar";
 import "./rspo.css";
 import {
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  Checkbox,
-  List,
   Paper,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  Button
+  Button,
+  TextField,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+  List,
+  ListItem
 } from "@material-ui/core";
 import { rspoAdmin } from "../../store/models/authentication";
+import { setMillAddress } from "../../store/actions/mill";
 
 class RSPO extends Component {
+  state = {
+    millAddress: ""
+  };
   async componentDidMount() {
     if (this.props.consortiumDeployerAddress !== "") {
       // this.props.onFetchAdmin();
@@ -35,25 +41,89 @@ class RSPO extends Component {
   render() {
     return (
       <div>
-        <TopBar title={"Plantations related to selected consortium"} />
+        <TopBar
+          title={"Plantations and active Mill related to selected consortium"}
+        />
 
-        <Paper>
-          {this.props.authType == rspoAdmin ? (
-            <PlantationTable
-              className="plantationTable"
-              onApproveRequest={address => this.props.onApproveRequest(address)}
-              plantationInstances={this.props.plantationObjects}
-              onRevokeAccess={plantationAddress =>
-                this.props.revokePlantationAddress(plantationAddress)
-              }
+        {this.props.authType == rspoAdmin ? (
+          <div>
+            <Paper>
+              <PlantationTable
+                className="plantationTable"
+                onApproveRequest={address =>
+                  this.props.onApproveRequest(address)
+                }
+                plantationInstances={this.props.plantationObjects}
+                onRevokeAccess={plantationAddress =>
+                  this.props.revokePlantationAddress(plantationAddress)
+                }
+              />
+            </Paper>
+            <MillSetter
+              onSetMillAddress={address => {
+                this.setState({ millAddress: "" });
+                this.props.onSetMillAddress(address);
+              }}
+              onMillChange={text => this.setState({ millAddress: text })}
+              millAddressValue={this.state.millAddress}
+              {...this.props.activeMill}
             />
-          ) : (
-            <div>You must sign in as RSPO administrator to view this page</div>
-          )}
-        </Paper>
+          </div>
+        ) : (
+          <div>You must sign in as RSPO administrator to view this page</div>
+        )}
       </div>
     );
   }
+}
+
+function MillSetter(props) {
+  return (
+    <div className="millSectionContainer">
+      <div className="millDescriptionContainer">
+        <ExpansionPanel disabled={props.millAddress === ""}>
+          <ExpansionPanelSummary>
+            <Typography>Current Mill Information</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <List>
+              <ListItem>
+                <Typography>Mill name: {props.millName}</Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>GPS Longitude: {props.GPSLongitude}</Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>GPS Latitude: {props.GPSLatitude}</Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>Mill Address: {props.millAddress}</Typography>
+              </ListItem>
+            </List>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
+      <div className="millSetterContainer">
+        <div className="millSetterSubContainer">
+          <TextField
+            value={props.millAddressValue}
+            fullWidth
+            label="Set Mill Address of selected consortium"
+            onChange={e => props.onMillChange(e.target.value)}
+          />
+        </div>
+        <div className="millSetterSubContainer">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => props.onSetMillAddress(props.millAddressValue)}
+          >
+            save
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function PlantationTable(props) {
@@ -113,7 +183,8 @@ const mapStateToProps = state => ({
     state.consortiumListReducer.consortiumDeployerAddress,
   authType: state.authenticationReducer.authType,
   plantationObjects: state.consortiumListReducer.plantationObjects,
-  consortiumAddress: state.consortiumListReducer.selectedConsortiumAddress
+  consortiumAddress: state.consortiumListReducer.selectedConsortiumAddress,
+  activeMill: { ...state.millReducer }
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,7 +193,8 @@ const mapDispatchToProps = dispatch => ({
   onApproveRequest: plantationAddress =>
     dispatch(approvePlantationRequest(plantationAddress)),
   revokePlantationAddress: plantationAddress =>
-    dispatch(revokePlantationAccess(plantationAddress))
+    dispatch(revokePlantationAccess(plantationAddress)),
+  onSetMillAddress: address => dispatch(setMillAddress(address))
 });
 
 export default connect(

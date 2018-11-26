@@ -19,6 +19,8 @@ export const SET_PLANTATION_INFORMATION_LIST =
 export const SET_RSPO_ADMIN = "@@SET_RSPO_ADMIN";
 
 //Mill Related
+export const SET_MILL_ADDRESS = "@@SET_MILL_ADDRESS";
+export const SET_MILL_PROPERTIES = "@@SET_MILL_PROPERTIES";
 
 //Authentication Related
 export const SET_AUTHENTICATED_TYPE = "@@SET_AUTHENTICATED_TYPE";

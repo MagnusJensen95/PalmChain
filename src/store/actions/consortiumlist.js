@@ -29,9 +29,14 @@ export const setAvaibleConsortiumList = list => {
 };
 
 export const setSelectedConsortiumAddress = address => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    let deployerAddress = getState().consortiumListReducer
+      .consortiumDeployerAddress;
+    let rspoAddress = getState().rspoReducer.rspoAdministrator;
     dispatch(fetchRSPOAdministrator(address));
+
     dispatch(selectConsortiumAddress(address));
+    dispatch(fetchPlantationAddresses(deployerAddress, address, rspoAddress));
   };
 };
 
@@ -96,6 +101,7 @@ export const fetchPlantationAddresses = (
         from: userAddress
       });
 
+    console.log(userAddress);
     let informationArray = [];
     for (let address of plantationAddresses) {
       let plantationContract = plantationInstance(address);
@@ -111,9 +117,11 @@ export const fetchPlantationAddresses = (
     }
 
     let userType = getState().authenticationReducer.authType;
-    console.log(userType);
 
-    dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
+    if (userAddress !== "") {
+      dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
+    }
+
     dispatch(setPlantationInformationList(informationArray));
   };
 };
