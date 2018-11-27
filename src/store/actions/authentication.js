@@ -15,8 +15,10 @@ import {
   rspoAdmin
 } from "../models/authentication";
 import { setRSPOAdministrator } from "./rspo";
-import { fetchPlantationAddresses, setPlantationList } from "./consortiumlist";
-import { identifyPlantationAddressByOwner, setPlantationProperties } from "./plantation";
+import { fetchPlantationAddresses } from "./consortiumlist";
+import { identifyPlantationAddressByOwner } from "./plantation";
+import { mapToMill, isZeroAddress } from "../../utils/mappings";
+import { setMillAddress } from "./mill";
 
 export const setAuthenticatedType = type => {
   return {
@@ -59,7 +61,6 @@ export const signUserOut = () => {
     dispatch(setUserAuthenticated(false));
     dispatch(setAuthenticatedType(unauthorizedUser));
     dispatch({ type: RESET });
-
   };
 };
 
@@ -69,7 +70,7 @@ export const authenticateUserAsType = (
   consortiumAddress,
   deployerAddress
 ) => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     switch (type) {
       case plantationOwner:
         dispatch(
@@ -92,31 +93,14 @@ export const authenticateUserAsType = (
   };
 };
 
-export const authenticatePlantation = (
-  userAddress,
-  consortiumAddress,
-  deployerAddress
-) => {
+export const authenticatePlantation = (userAddress, deployerAddress) => {
   return async dispatch => {
     dispatch(setAuthenticatedType(plantationOwner));
     dispatch(setUserAuthenticated(true));
     dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
-
-    //Everyone is able to sign is as plantation owner, might not be able to see any plantations.
-    // let consortium = consortiumInstance(consortiumAddress);
-    // let registeredPlantation = await consortium.methods
-    //   .registeredPlantations(userAddress)
-    //   .call({
-    //     from: userAddress
-    //   });
-    // if (registeredPlantation) {
-    //  //
-    // } else {
-    //   dispatch(setAuthenticatedType(unauthorizedUser));
-    //   dispatch(setUserAuthenticated(false));
-    // }
   };
 };
+
 export const authenticateRSPO = (userAddress, consortiumAddress) => {
   return async (dispatch, getState) => {
     let consortium = consortiumInstance(consortiumAddress);
@@ -149,13 +133,20 @@ export const authenticateMill = (userAddress, consortiumAddress) => {
     let registeredMill = await consortium.methods.activeMill().call({
       from: userAddress
     });
+    registeredMill = mapToMill(registeredMill);
 
-    // if (activeMill) {
-    //   dispatch(setAuthenticatedType(millOwner));
-    //   dispatch(setUserAuthenticated(true));
-    // } else {
-    //   dispatch(setAuthenticatedType(unauthorizedUser));
-    //   dispatch(setUserAuthenticated(false));
-    // }
+    if (isZeroAddress(registeredMill.millAddress)) {
+      alert("This consortium does not yet have an active mill assigned to it.");
+      return;
+    }
+
+    if (registeredMill.millAddress === userAddress) {
+      dispatch(setAuthenticatedType(millOwner));
+      dispatch(setUserAuthenticated(true));
+      dispatch(setMillAddress(registeredMill.millAddress));
+    } else {
+      dispatch(setAuthenticatedType(unauthorizedUser));
+      dispatch(setUserAuthenticated(false));
+    }
   };
 };

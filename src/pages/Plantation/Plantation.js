@@ -22,7 +22,7 @@ export class Plantation extends Component {
     }
     if (
       isZeroAddress(this.props.plantationAddress) ||
-      this.props.plantationAddress == ""
+      this.props.plantationAddress === ""
     ) {
       this.props.onFetchPlantationAddress(
         this.props.userAddress,
@@ -87,12 +87,17 @@ export class Plantation extends Component {
       <div>
         <TopBar title={"Plantation Overview"} />
         {this.props.userAuthType === plantationOwner ? (
-
-          this.props.plantationInformation.approved ? <div> <TokenForm onSubmit={() => console.log("submittinh")} /></div> :
+          this.props.plantationInformation.approved ? (
+            <div>
+              {" "}
+              <TokenForm onSubmit={() => console.log("submittinh")} />
+            </div>
+          ) : (
             requestApprovalButton
+          )
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </div>
     );
   }

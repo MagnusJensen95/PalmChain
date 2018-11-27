@@ -14,11 +14,10 @@ import {
   authenticateUserAsType,
   signUserOut
 } from "../../store/actions/authentication";
-import web3 from "../../utils/getWeb3";
+
 import "./login.css";
 import {
   plantationOwner,
-  unauthorizedUser,
   rspoAdmin,
   millOwner
 } from "../../store/models/authentication";
@@ -66,8 +65,8 @@ export class Login extends Component {
         Sign Out
       </Button>
     ) : (
-        <></>
-      );
+      <></>
+    );
     return (
       <div>
         <TopBar title={title}>{signOutButton}</TopBar>
@@ -87,8 +86,8 @@ export class Login extends Component {
               />
             </div>
           ) : (
-              <></>
-            )}
+            <></>
+          )}
         </div>
       </div>
     );
@@ -142,13 +141,21 @@ const mapStateToProps = state => ({
   userAccounts: state.authenticationReducer.accounts,
   userAuthenticated: state.authenticationReducer.authorized,
   userType: state.authenticationReducer.authType,
-  selectedConsortiumAddress: state.consortiumListReducer.selectedConsortiumAddress,
+  selectedConsortiumAddress:
+    state.consortiumListReducer.selectedConsortiumAddress,
   deployerAddress: state.consortiumListReducer.consortiumDeployerAddress
 });
 
 const mapDispatchToProps = dispatch => ({
   onLoginAttempt: (type, userAddress, consortiumAddress, deployerAddress) =>
-    dispatch(authenticateUserAsType(type, userAddress, consortiumAddress, deployerAddress)),
+    dispatch(
+      authenticateUserAsType(
+        type,
+        userAddress,
+        consortiumAddress,
+        deployerAddress
+      )
+    ),
   onSetCurrentAccounts: () => dispatch(fetchAvailableAccounts()),
   onSelectUserAddress: address => dispatch(setCurrentUserAddress(address)),
   onLogoutAttempt: () => dispatch(signUserOut())

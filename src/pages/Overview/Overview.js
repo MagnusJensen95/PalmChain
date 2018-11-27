@@ -18,9 +18,8 @@ import {
   Button
 } from "@material-ui/core";
 import TopBar from "../../components/TopBar/TopBar";
-import './overview.css'
-import { rspoAdmin, unauthorizedUser } from "../../store/models/authentication";
-
+import "./overview.css";
+import { unauthorizedUser } from "../../store/models/authentication";
 
 class Overview extends Component {
   componentDidMount() {
@@ -32,50 +31,76 @@ class Overview extends Component {
   }
 
   deployPlantation() {
-
-
-    if (this.props.consortiumAddress === "" || this.props.userAuthenticationType === unauthorizedUser) {
+    if (
+      this.props.consortiumAddress === "" ||
+      this.props.userAuthenticationType === unauthorizedUser
+    ) {
       alert("you must sign in to deploy a new plantation!");
       return;
     }
 
-
-    this.props.onAddPlantation(this.props.consortiumDeployerAddress, this.props.consortiumAddress, this.props.signedInUserAddress);
-
+    this.props.onAddPlantation(
+      this.props.consortiumDeployerAddress,
+      this.props.consortiumAddress,
+      this.props.signedInUserAddress
+    );
   }
 
   render() {
-    const deploymentButton = this.props.consortiumDeployerAddress === "" ?
-      <div className="centerButton">
-        <Button variant="contained" color="primary" onClick={() => this.props.onInstantiateDeployer()}>Instantiate Consortium Deployer</Button>
-      </div>
-      :
+    const deploymentButton =
+      this.props.consortiumDeployerAddress === "" ? (
+        <div className="centerButton">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.props.onInstantiateDeployer()}
+          >
+            Instantiate Consortium Deployer
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <List>
+            {this.props.consortiumList.map((element, index) => (
+              <ListItem
+                button
+                onClick={() => this.props.onSetConsortiumAddress(element)}
+              >
+                <ListItemText primary={element} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    checked={element === this.props.consortiumAddress}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
 
-      <div>
-        <List>
-          {this.props.consortiumList.map((element, index) => (
-            <ListItem
-              button
-              onClick={() => this.props.onSetConsortiumAddress(element)}
+          <div className="addInstanceContainer">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() =>
+                this.props.onAddConsortium(this.props.consortiumDeployerAddress)
+              }
             >
-              <ListItemText primary={element} />
-              <ListItemSecondaryAction>
-                <Checkbox checked={element === this.props.consortiumAddress} />
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-
-        <div className="addInstanceContainer">
-          <Button variant="outlined" color="primary" onClick={() => this.props.onAddConsortium(this.props.consortiumDeployerAddress)}>Add Consortium</Button>
-          <Button variant="outlined" color="primary" onClick={() => this.deployPlantation()}>Add Plantation</Button>
-        </div></div>;
+              Add Consortium
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => this.deployPlantation()}
+            >
+              Add Plantation
+            </Button>
+          </div>
+        </div>
+      );
 
     return (
       <div>
         <TopBar title={"Consortium instance overview"} />
         {deploymentButton}
-
       </div>
     );
   }
@@ -84,7 +109,8 @@ class Overview extends Component {
 const mapStateToProps = state => ({
   consortiumList: state.consortiumListReducer.consortiumList,
   consortiumAddress: state.consortiumListReducer.selectedConsortiumAddress,
-  consortiumDeployerAddress: state.consortiumListReducer.consortiumDeployerAddress,
+  consortiumDeployerAddress:
+    state.consortiumListReducer.consortiumDeployerAddress,
   userAuthenticationType: state.authenticationReducer.authType,
   signedInUserAddress: state.authenticationReducer.userAddress
 });
@@ -95,8 +121,10 @@ const mapDispatchToProps = dispatch => ({
   onFetchConsortiumList: userAddress =>
     dispatch(fetchConsortiumAddresses(userAddress)),
   onInstantiateDeployer: () => dispatch(deployNewConsortiumDeployerAction()),
-  onAddConsortium: (deployerAddress) => dispatch(deployConsortium(deployerAddress)),
-  onAddPlantation: (deployerAddress, consortiumAddress, userAddress) => dispatch(deployPlantation(deployerAddress, consortiumAddress, userAddress)),
+  onAddConsortium: deployerAddress =>
+    dispatch(deployConsortium(deployerAddress)),
+  onAddPlantation: (deployerAddress, consortiumAddress, userAddress) =>
+    dispatch(deployPlantation(deployerAddress, consortiumAddress, userAddress))
 });
 
 export default connect(

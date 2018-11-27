@@ -46,7 +46,7 @@ export const setMillAddress = address => {
     let userAddress = getState().authenticationReducer.userAddress;
 
     let millProps = { ...getState().millReducer };
-    console.log(millProps);
+
     let consortium = consortiumInstance(consortiumAddress);
 
     await consortium.methods

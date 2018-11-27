@@ -45,7 +45,7 @@ class RSPO extends Component {
           title={"Plantations and active Mill related to selected consortium"}
         />
 
-        {this.props.authType == rspoAdmin ? (
+        {this.props.authType === rspoAdmin ? (
           <div>
             <Paper>
               <PlantationTable

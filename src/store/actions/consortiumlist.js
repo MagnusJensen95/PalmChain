@@ -15,11 +15,7 @@ import consortiumInstance from "../../utils/consortiumInstance";
 import { plantationInstance } from "../../utils/plantationInstance";
 import { mapToPlantation } from "../../utils/mappings";
 import { fetchRSPOAdministrator } from "./rspo";
-import {
-  fetchPlantationInformation,
-  identifyPlantationAddressByOwner
-} from "./plantation";
-import { plantationOwner } from "../models/authentication";
+import { identifyPlantationAddressByOwner } from "./plantation";
 
 export const setAvaibleConsortiumList = list => {
   return {
@@ -70,7 +66,6 @@ export const setPlantationInformationList = list => {
 
 export const fetchConsortiumAddresses = address => {
   return async dispatch => {
-    let userAddress = await web3.eth.getAccounts();
     let deployer = consortiumDeployer(address);
     if (deployer === undefined) {
       return;
@@ -101,7 +96,6 @@ export const fetchPlantationAddresses = (
         from: userAddress
       });
 
-    console.log(userAddress);
     let informationArray = [];
     for (let address of plantationAddresses) {
       let plantationContract = plantationInstance(address);
@@ -115,8 +109,6 @@ export const fetchPlantationAddresses = (
       information = mapToPlantation(information);
       informationArray.push(information);
     }
-
-    let userType = getState().authenticationReducer.authType;
 
     if (userAddress !== "") {
       dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress));
