@@ -47,9 +47,7 @@ const ConsortiumListReducer = (state = initialState, action) => {
         selectedConsortiumAddress: action.selectedConsortiumAddress
       };
     }
-    // case RESET: {
-    //     return initialState;
-    // }
+
 
     default:
       return state;

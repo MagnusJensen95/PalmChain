@@ -13,10 +13,46 @@ import { plantationOwner } from "../../store/models/authentication";
 import { Button } from "@material-ui/core";
 import "./plantation.css";
 import TokenForm from "./TokenForm";
+import ParameterChange from "./ParameterChange";
+import TokenList from "./TokenList";
 
 export class Plantation extends Component {
+
+  state = {
+
+    newPlantationProps: {
+      name: "",
+      longitude: "",
+      latitude: ""
+    },
+    tokenProps: {
+      weight: 0,
+      timeStamp: 0
+    }
+  }
+
+  onTokenSubmission() {
+    let weight = this.state.tokenProps.weight;
+    let date = this.state.tokenProps.timeStamp;
+
+
+    let convertedDate = new Date(date).getTime();
+
+    if (weight > 0 && convertedDate > 0) {
+      this.props.onSubmitToken(weight, convertedDate);
+      this.setState({
+        tokenProps: { ...this.state.tokenProps, weight: 0, timeStamp: 0 }
+
+      });
+
+    }
+
+
+
+  }
+
   componentDidMount() {
-    console.log(this.props.plantationAddress);
+
     if (this.props.userAuthType !== plantationOwner) {
       return;
     }
@@ -85,19 +121,38 @@ export class Plantation extends Component {
 
     return (
       <div>
-        <TopBar title={"Plantation Overview"} />
+        <TopBar title={"Plantation Dashboard"} />
         {this.props.userAuthType === plantationOwner ? (
           this.props.plantationInformation.approved ? (
-            <div>
-              {" "}
-              <TokenForm onSubmit={() => console.log("submittinh")} />
+
+
+            <div className={'plantationMainContainer'}>
+              <div className={'plantationTopContainer'}>
+                <div className={'plantationLeftSubContainer'}>
+                  <ParameterChange />
+                </div>
+
+                <div className={'plantationRightSubContainer'}>
+                  <TokenForm
+                    weight={this.state.tokenProps.weight}
+                    date={this.state.tokenProps.timeStamp}
+                    onSubmitToken={() => this.onTokenSubmission()}
+                    onSetBatchWeight={(weight) => this.setState({ tokenProps: { ...this.state.tokenProps, weight: weight } })}
+                    onSetHarvestDate={(timeStamp) => this.setState({ tokenProps: { ...this.state.tokenProps, timeStamp: timeStamp } })} />
+                </div>
+              </div>
+              <div className={'plantationBottomContainer'}>
+                <TokenList />
+              </div>
             </div>
+
+
           ) : (
-            requestApprovalButton
-          )
+              requestApprovalButton
+            )
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </div>
     );
   }
@@ -116,8 +171,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onFetchPlantationInformation: (plantationAddress, userAddress) =>
     dispatch(fetchPlantationInformation(plantationAddress, userAddress)),
-  onSubmitToken: (plantationAddress, tokenObject, userAddress) =>
-    dispatch(submitFFBToken(tokenObject, userAddress)),
+  onSubmitToken: (weight, date) =>
+    dispatch(submitFFBToken(weight, date)),
   onFetchPlantationAddress: (userAddress, deployerAddress) =>
     dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress)),
   onRequestApproval: (plantationAddress, userAddress) =>

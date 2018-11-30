@@ -31,7 +31,7 @@ export const setPlantationProperties = plantationProperties => {
 
 //fetch tokens submitted by this plantation
 export const fetchTokensSubmitted = address => {
-  return async dispatch => {};
+  return async dispatch => { };
 };
 
 //Fetch plantation address belonging to currently signed in user (if he is owner of a plantation)
@@ -85,8 +85,20 @@ export const fetchPlantationInformation = (plantationAddress, userAddress) => {
 };
 
 //Submit ffb token from selected user address
-export const submitFFBToken = (token, userAddress) => {
-  return async dispatch => {};
+export const submitFFBToken = (weight, date) => {
+  return async (dispatch, getState) => {
+
+    let plantationAddress = getState().plantationReducer.plantationAddress;
+    let userAddress = getState().authenticationReducer.userAddress;
+
+    let plantation = plantationInstance(plantationAddress);
+
+    await plantation.methods.submitFFBToken(weight, date).send({
+      from: userAddress,
+      gas: 4712388,
+      gasPrice: 100000000000
+    });
+  }
 };
 
 export const requestConsortiumApproval = (plantationAddress, userAddress) => {

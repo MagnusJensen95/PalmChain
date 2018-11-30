@@ -1,89 +1,26 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { TextField } from '@material-ui/core'
+import React, { Component } from 'react'
+import { Button, TextField } from '@material-ui/core';
 
 
+const TokenForm = (props) => {
 
-
-const validate = values => {
-    const errors = {}
-    const requiredFields = [
-        'weight',
-        'timestamp'
-    ]
-    requiredFields.forEach(field => {
-        if (!values[field]) {
-            errors[field] = 'Required'
-        }
-    })
-    if (
-        values.email &&
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-        errors.email = 'Invalid email address'
-    }
-    return errors
-}
-
-const renderTextField = ({
-    input,
-    label,
-    meta: { touched, error },
-    ...custom
-}) => (
-        <TextField
-
-            label={label}
-
-            {...input}
-            {...custom}
-        />
-    )
-
-
-
-const TokenForm = props => {
-    const { handleSubmit, pristine, reset, submitting } = props
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    name="firstName"
-                    component={renderTextField}
-                    label="First Name"
-                />
-            </div>
-            <div>
-                <Field name="lastName" component={renderTextField} label="Last Name" />
-            </div>
-            <div>
-                <Field name="email" component={renderTextField} label="Email" />
-            </div>
+        <div className="ffbFormContainer">
 
+            <h3>Submit new token</h3>
+            <TextField value={props.date} type="date" label="Select date of harvest"
+                onChange={(e => props.onSetHarvestDate(e.target.value))} InputLabelProps={{
+                    shrink: true,
+                }} />
+            <TextField value={props.weight} type="number" label="Set batch weight (kg)"
+                onChange={(e => props.onSetBatchWeight(e.target.value))} InputLabelProps={{
+                    shrink: true,
+                }} />
 
-
-            <div>
-                <Field
-                    name="notes"
-                    component={renderTextField}
-                    label="Notes"
-                    multiLine={true}
-                    rows={2}
-                />
-            </div>
-            <div>
-                <button type="submit" disabled={pristine || submitting}>
-                    Submit
-        </button>
-                <button type="button" disabled={pristine || submitting} onClick={reset}>
-                    Clear Values
-        </button>
-            </div>
-        </form>
+            <Button onClick={() => props.onSubmitToken()} variant="contained" color="primary">Submit Token</Button>
+        </div >
     )
+
 }
 
-export default reduxForm({
-    form: 'TokenForm', // a unique identifier for this form
-    validate
-})(TokenForm)
+export default TokenForm;

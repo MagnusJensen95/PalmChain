@@ -22,5 +22,5 @@ export const mapToMill = response => {
 };
 
 export const isZeroAddress = address => {
-  return address === "0x0000000000000000000000000000000000000000";
+  return address === '0x0000000000000000000000000000000000000000';
 };

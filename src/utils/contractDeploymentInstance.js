@@ -13,6 +13,7 @@ export const consortiumDeployer = (address) => {
 
 export const deployNewConsortiumDeployer = async (userAddress) => {
 
+
     //Instance of deployer would exist in real world case though
     let instance = new web3.eth.Contract(ConsortiumDeployer.abi);
     let deployment = await instance.deploy({ data: ConsortiumDeployer.bytecode }).send({

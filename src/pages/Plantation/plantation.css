@@ -4,3 +4,53 @@
   justify-content: center;
   margin-top: 50px;
 }
+
+
+.plantationMainContainer {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+flex: 1;
+margin-top: 20px;
+}
+
+.plantationTopContainer {
+  flex-direction: row;
+  flex: 1;
+  display: flex;
+}
+
+.plantationLeftSubContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.plantationRightSubContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.plantationBottomContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+
+}
+
+.ffbFormContainer{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  min-height: 300px;
+  justify-content: space-evenly;
+ 
+}
+.ffbFormContainer > *{
+margin-top: 10px;
+}
+
+
