@@ -74,6 +74,8 @@ contract("Consortium functionality test", async accounts => {
     });
 
     let actualAddress = newConsortiumAddress[0];
+    instance = await Consortium.at(actualAddress)
+    rspoAdmin = await instance.RSPOAdministrator.call();
     await consortiumDeployerInstance.createPlantation(actualAddress, rspoAdmin, {
       from: accounts[6]
     });
@@ -83,9 +85,9 @@ contract("Consortium functionality test", async accounts => {
     });
     actualPlantationAddress = newPlantationAddress[0];
 
-    instance = await Consortium.at(actualAddress)
+
     plantationInstance = await Plantation.at(actualPlantationAddress)
-    rspoAdmin = await instance.RSPOAdministrator.call();
+
   };
 
   beforeEach(async () => {
@@ -127,6 +129,7 @@ contract("Consortium functionality test", async accounts => {
   });
 
   it("should allow RSPO admin to change current Mill instance", async () => {
+
     let txApprove = await instance.setMill(
       mill.longitude,
       mill.latitude,
@@ -149,12 +152,23 @@ contract("Consortium functionality test", async accounts => {
       }
     );
 
+    await instance.setMill(
+      mill.longitude,
+      mill.latitude,
+      mill.name,
+      mill.associatedAddress,
+      {
+        from: rspoAdmin
+      }
+    );
+
 
     let txApprove = await instance.approvePlantationRequest(actualPlantationAddress, {
       from: rspoAdmin
     });
     //truffleAssert.eventEmitted(txRequest, "PlantationSubmissionRequested");
     //truffleAssert.eventEmitted(txApprove, "PlantationSubmissionApproved");
+
 
     let tokenSubmit = await plantationInstance.submitFFBToken(
       fruitToken.weight,
@@ -163,6 +177,11 @@ contract("Consortium functionality test", async accounts => {
         from: accounts[6]
       }
     );
+
+    let amount = await plantationInstance.getTokenAmount();
+
+
+
     assert.ok(tokenSubmit);
     let index = -1;
     truffleAssert.eventEmitted(tokenSubmit, "FFBTokenSubmitted", fruitEvent => {

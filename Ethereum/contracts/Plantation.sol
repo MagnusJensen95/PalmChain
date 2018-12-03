@@ -1,20 +1,31 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.24;
+
 
 import './Consortium.sol';
 
+
+import { TokenDefinitions } from "./Consortium.sol";
+
+
 contract Plantation {
+
+
 
     Consortium private consortium;
     address public plantationOwner;
     bool public approvedByConsortium = false;
    // bool public certifiedByConsortium = false;
+
+
     
+    TokenDefinitions.FFBToken[] public FFBTokens;
     uint capacity;
     string GPSLongitude;
     string GPSlatitude; 
     address public RSPOAdministratorConsortium;
     bool public pendingApproval = false;
     string public Name = "Unset Name";
+    
 
 
     event FFBTokenSubmitted(address owner, address newOwner, uint index);
@@ -77,7 +88,7 @@ contract Plantation {
         //Find date løsning
         //Assume call comes from plantation contract => msg.sender is valid
         require(approvedByConsortium, "Access Denied, no permission detected");
-            consortium.submitFFBToken(weight, harvestTimeStamp);
+            consortium.submitFFBToken(weight, harvestTimeStamp, msg.sender);
 
        
         }
@@ -87,6 +98,50 @@ contract Plantation {
         emit FFBTokenSubmitted(this, millAddress, index);
       
     }
+
+    function saveFFBToken(
+        uint weight,
+        address plantationOrigin,
+        address owner,
+        address newOwner,
+        uint harvestTimeStamp,
+        bool RSPOCertified,
+        bool processed,
+        uint tokenId,
+        address callOrigin) public {
+
+        require(callOrigin == plantationOwner, "this function is only callable as a result of an added token in the parent contract");
+
+        TokenDefinitions.FFBToken memory token = TokenDefinitions.FFBToken({
+         weight: weight,
+         plantationOrigin: plantationOrigin,
+         owner: owner,
+         newOwner: newOwner,
+         harvestTimeStamp: harvestTimeStamp,
+         RSPOCertified: RSPOCertified,
+         processed: processed,
+         tokenId: tokenId});
+    
+        FFBTokens.push(token);
+
+
+    }
+
+    function getTokenAmount() public view returns (uint) {
+
+        return FFBTokens.length;
+    }
+
+    //  function getTokenIds() public view  returns (uint[] memory idCollection) {
+    //       uint length = FFBTokens.length;
+     
+
+    //      for (uint i=0; i<FFBTokens.length; i++) {
+
+    //          idCollection[i] = FFBTokens[i].tokenId;
+    //       }
+    //     return idCollection;
+    // }
        
 
     

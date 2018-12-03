@@ -6,7 +6,7 @@ import {
 
 import { consortiumDeployer } from "../../utils/contractDeploymentInstance";
 import { plantationInstance } from "../../utils/plantationInstance";
-import { mapToPlantation, isZeroAddress } from "../../utils/mappings";
+import { mapToPlantation, isZeroAddress, mapToFFBToken } from "../../utils/mappings";
 
 export const setTokensSubmittedFromPlantation = tokens => {
   return {
@@ -98,6 +98,27 @@ export const submitFFBToken = (weight, date) => {
       gas: 4712388,
       gasPrice: 100000000000
     });
+
+
+    let amount = await plantation.methods.getTokenAmount().call({
+      from: userAddress
+    })
+
+    let tokenCollection = [];
+    for (let i = 0; i < amount; i++) {
+      let token = await plantation.methods.FFBTokens(i).call({
+        from: userAddress
+      })
+      token = mapToFFBToken(token);
+
+      tokenCollection.push(token);
+    }
+
+    dispatch(setTokensSubmittedFromPlantation(tokenCollection))
+
+
+
+
   }
 };
 

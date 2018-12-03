@@ -14,7 +14,7 @@ const PlantationReducer = (state = initialState, action) => {
         case SET_TOKENS_SUBMITTED: {
             return {
                 ...state,
-                tokensSubmitted: action.tokensSubmitted
+                tokensSubmitted: action.tokens
             };
         }
         case SET_PLANTATION_INFORMATION: {

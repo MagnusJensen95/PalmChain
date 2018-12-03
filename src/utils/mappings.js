@@ -24,3 +24,21 @@ export const mapToMill = response => {
 export const isZeroAddress = address => {
   return address === '0x0000000000000000000000000000000000000000';
 };
+
+
+export const mapToFFBToken = token => {
+
+
+  let newToken = {
+    RSPOCertified: token.RSPOCertified,
+    harvestTimeStamp: token.harvestTimeStamp,
+    newOwner: token.newOwner,
+    owner: token.owner,
+    plantationOrigin: token.plantationOrigin,
+    processed: token.processed,
+    tokenId: token.tokenId,
+    weight: token.weight
+  }
+
+  return newToken;
+}

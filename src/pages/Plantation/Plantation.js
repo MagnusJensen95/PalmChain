@@ -10,11 +10,12 @@ import {
 } from "../../store/actions/plantation";
 import { isZeroAddress } from "../../utils/mappings";
 import { plantationOwner } from "../../store/models/authentication";
-import { Button } from "@material-ui/core";
+import { Button, Paper } from "@material-ui/core";
 import "./plantation.css";
 import TokenForm from "./TokenForm";
 import ParameterChange from "./ParameterChange";
-import TokenList from "./TokenList";
+
+import FruitTokenTable from "./TokenList";
 
 export class Plantation extends Component {
 
@@ -142,7 +143,10 @@ export class Plantation extends Component {
                 </div>
               </div>
               <div className={'plantationBottomContainer'}>
-                <TokenList />
+                <Paper>
+                  <h3 className="tableHeader">Tokens Submitted:</h3>
+                  {<FruitTokenTable tokens={this.props.ffbTokens} />}
+                </Paper>
               </div>
             </div>
 
@@ -164,7 +168,8 @@ const mapStateToProps = state => ({
   plantationAddress: state.plantationReducer.plantationAddress,
   userAddress: state.authenticationReducer.userAddress,
   deployerAddress: state.consortiumListReducer.consortiumDeployerAddress,
-  plantationInformation: state.plantationReducer.plantationProperties
+  plantationInformation: state.plantationReducer.plantationProperties,
+  ffbTokens: state.plantationReducer.tokensSubmitted
 });
 
 //Fetching approval status may be redundant, as the info lies in the plantation reducer already
