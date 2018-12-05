@@ -7,6 +7,7 @@ import PlantationReducer from "./reducers/plantation";
 
 import { reducer as formReducer } from "redux-form";
 import MillReducer from "./reducers/mill";
+import UIReducer from "./reducers/ui";
 
 //Merge reducers
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   consortiumListReducer: ConsortiumListReducer,
   plantationReducer: PlantationReducer,
   form: formReducer,
-  millReducer: MillReducer
+  millReducer: MillReducer,
+  uiReducer: UIReducer
 });
 
 export default rootReducer;

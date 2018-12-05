@@ -39,19 +39,19 @@ contract Plantation {
     }  
 
     function setPlantationName(string name) public{
-        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        require(msg.sender == plantationOwner, "Only administrator may change the value of this property");
         Name = name;
     }
 
     
     function setPlantationLongitude(string GPSLongitudeParam) public {
-        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        require(msg.sender == plantationOwner, "Only administrator may change the value of this property");
         GPSLongitude = GPSLongitudeParam;
     }
 
     
     function setPlantationLatitude(string GPSlatitudeParam) public {
-        require(msg.sender == RSPOAdministratorConsortium, "Only administrator may change the value of this property");
+        require(msg.sender == plantationOwner, "Only administrator may change the value of this property");
         GPSlatitude = GPSlatitudeParam;
     }
 

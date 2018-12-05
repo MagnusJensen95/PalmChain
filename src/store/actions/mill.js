@@ -1,4 +1,4 @@
-import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES } from "./types";
+import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES, SET_COTOKENS } from "./types";
 import { consortiumInstance } from "../../utils/consortiumInstance";
 import web3 from "../../utils/getWeb3";
 import { mapToMill } from "../../utils/mappings";
@@ -10,6 +10,13 @@ export const setMillAddressLocal = address => {
   };
 };
 
+export const setCoTokens = tokens => {
+  return {
+    type: SET_COTOKENS,
+    coTokens: tokens
+  };
+};
+
 export const setMillProperties = mill => {
   return {
     type: SET_MILL_PROPERTIES,
@@ -17,6 +24,20 @@ export const setMillProperties = mill => {
     GPSLongitude: mill.GPSLongitude,
     millAddress: mill.millAddress,
     millName: mill.millName
+  };
+};
+
+export const fetchPossibleTokens = () => {
+  return async (dispatch, getState) => {
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+
+    let userAddress = getState().authenticationReducer.userAddress;
+    let consortium = consortiumInstance(consortiumAddress);
+
+    let result = await consortium.methods.getUnprocessedTokenIndexes().call({
+      from: userAddress
+    });
   };
 };
 
@@ -63,5 +84,48 @@ export const setMillAddress = address => {
       });
 
     dispatch(fetchCurrentMillAddress(consortiumAddress));
+  };
+};
+
+export const getCoTokensCreated = () => {
+  return async (dispatch, getState) => {
+    let tokens = [];
+
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+    let userAddress = getState().authenticationReducer.userAddress;
+
+    let consortium = consortiumInstance(consortiumAddress);
+    let amount = await consortium.methods.getCoTokenAmount().call({
+      from: userAddress
+    });
+
+    let tokenCollection = [];
+    for (let i = 0; i < amount; i++) {
+      let token = await consortium.methods.COTokens(i).call({
+        from: userAddress
+      });
+      console.log(token);
+    }
+
+    dispatch(setCoTokens(tokens));
+  };
+};
+
+export const createCoToken = indexes => {
+  return async (dispatch, getState) => {
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+    let userAddress = getState().authenticationReducer.userAddress;
+
+    let consortium = consortiumInstance(consortiumAddress);
+
+    await consortium.methods.consumeFFBTokens(indexes).send({
+      from: userAddress,
+      gas: 4712388,
+      gasPrice: 100000000000
+    });
+
+    dispatch(getCoTokensCreated());
   };
 };

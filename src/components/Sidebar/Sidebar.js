@@ -9,7 +9,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { ListSubheader } from "@material-ui/core";
+import { ListSubheader, Button, IconButton } from "@material-ui/core";
+import { setDrawerOpen } from "../../store/actions/ui";
+import ArrowLeft from "@material-ui/icons/ArrowLeft";
 
 const styles = theme => ({
   button: {
@@ -68,14 +70,18 @@ class TemporaryDrawer extends React.Component {
               />
             </ListItem>
           </Link>
+
+          <IconButton onClick={() => this.props.onToggleDrawer(false)}>
+            <ArrowLeft />
+          </IconButton>
         </List>
       </div>
     );
     return (
       <Drawer
         anchor="left"
-        variant="permanent"
-        open
+        variant="persistent"
+        open={this.props.drawerOpen}
         classes={{
           paper: classes.navbar
         }}
@@ -89,12 +95,13 @@ class TemporaryDrawer extends React.Component {
 const styledDrawer = withStyles(styles)(TemporaryDrawer);
 
 const mapStateToProps = state => ({
-  userAuthenticated: state.authenticationReducer.authorized
+  userAuthenticated: state.authenticationReducer.authorized,
+  drawerOpen: state.uiReducer.drawerStatus
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    //  onNavigate: (route) => dispatch(push(route))
+    onToggleDrawer: opened => dispatch(setDrawerOpen(opened))
   };
 };
 

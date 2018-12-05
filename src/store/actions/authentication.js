@@ -145,6 +145,7 @@ export const authenticateMill = (userAddress, consortiumAddress) => {
       dispatch(setUserAuthenticated(true));
       dispatch(setMillAddress(registeredMill.millAddress));
     } else {
+      alert("You are not the owner of this mill.");
       dispatch(setAuthenticatedType(unauthorizedUser));
       dispatch(setUserAuthenticated(false));
     }

@@ -6,7 +6,8 @@ import {
   submitFFBToken,
   fetchPlantationInformation,
   identifyPlantationAddressByOwner,
-  requestConsortiumApproval
+  requestConsortiumApproval,
+  setPlantationName
 } from "../../store/actions/plantation";
 import { isZeroAddress } from "../../utils/mappings";
 import { plantationOwner } from "../../store/models/authentication";
@@ -18,9 +19,7 @@ import ParameterChange from "./ParameterChange";
 import FruitTokenTable from "./TokenList";
 
 export class Plantation extends Component {
-
   state = {
-
     newPlantationProps: {
       name: "",
       longitude: "",
@@ -29,13 +28,15 @@ export class Plantation extends Component {
     tokenProps: {
       weight: 0,
       timeStamp: 0
-    }
-  }
+    },
+
+    localName: "",
+    editing: false
+  };
 
   onTokenSubmission() {
     let weight = this.state.tokenProps.weight;
     let date = this.state.tokenProps.timeStamp;
-
 
     let convertedDate = new Date(date).getTime();
 
@@ -43,17 +44,11 @@ export class Plantation extends Component {
       this.props.onSubmitToken(weight, convertedDate);
       this.setState({
         tokenProps: { ...this.state.tokenProps, weight: 0, timeStamp: 0 }
-
       });
-
     }
-
-
-
   }
 
   componentDidMount() {
-
     if (this.props.userAuthType !== plantationOwner) {
       return;
     }
@@ -77,6 +72,16 @@ export class Plantation extends Component {
       this.props.plantationAddress,
       this.props.userAddress
     );
+  }
+
+  handleEditToggle(editing) {
+    //Editing = true meaning: we are now in editing
+    // state and no call to contract should be made
+
+    this.setState({ editing: editing });
+    if (editing === false) {
+      this.props.onChangePlantationName(this.state.localName);
+    }
   }
   render() {
     let requestApprovalButton;
@@ -125,38 +130,51 @@ export class Plantation extends Component {
         <TopBar title={"Plantation Dashboard"} />
         {this.props.userAuthType === plantationOwner ? (
           this.props.plantationInformation.approved ? (
-
-
-            <div className={'plantationMainContainer'}>
-              <div className={'plantationTopContainer'}>
-                <div className={'plantationLeftSubContainer'}>
-                  <ParameterChange />
+            <div className={"plantationMainContainer"}>
+              <div className={"plantationTopContainer"}>
+                <div className={"plantationLeftSubContainer"}>
+                  <ParameterChange
+                    onNameChange={value => this.setState({ localName: value })}
+                    onToggleEdit={edit => this.handleEditToggle(edit)}
+                    editing={this.state.editing}
+                    plantation={this.props.plantationInformation}
+                  />
                 </div>
 
-                <div className={'plantationRightSubContainer'}>
+                <div className={"plantationRightSubContainer"}>
                   <TokenForm
                     weight={this.state.tokenProps.weight}
                     date={this.state.tokenProps.timeStamp}
                     onSubmitToken={() => this.onTokenSubmission()}
-                    onSetBatchWeight={(weight) => this.setState({ tokenProps: { ...this.state.tokenProps, weight: weight } })}
-                    onSetHarvestDate={(timeStamp) => this.setState({ tokenProps: { ...this.state.tokenProps, timeStamp: timeStamp } })} />
+                    onSetBatchWeight={weight =>
+                      this.setState({
+                        tokenProps: { ...this.state.tokenProps, weight: weight }
+                      })
+                    }
+                    onSetHarvestDate={timeStamp =>
+                      this.setState({
+                        tokenProps: {
+                          ...this.state.tokenProps,
+                          timeStamp: timeStamp
+                        }
+                      })
+                    }
+                  />
                 </div>
               </div>
-              <div className={'plantationBottomContainer'}>
+              <div className={"plantationBottomContainer"}>
                 <Paper>
                   <h3 className="tableHeader">Tokens Submitted:</h3>
                   {<FruitTokenTable tokens={this.props.ffbTokens} />}
                 </Paper>
               </div>
             </div>
-
-
           ) : (
-              requestApprovalButton
-            )
+            requestApprovalButton
+          )
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </div>
     );
   }
@@ -176,12 +194,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onFetchPlantationInformation: (plantationAddress, userAddress) =>
     dispatch(fetchPlantationInformation(plantationAddress, userAddress)),
-  onSubmitToken: (weight, date) =>
-    dispatch(submitFFBToken(weight, date)),
+  onSubmitToken: (weight, date) => dispatch(submitFFBToken(weight, date)),
   onFetchPlantationAddress: (userAddress, deployerAddress) =>
     dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress)),
   onRequestApproval: (plantationAddress, userAddress) =>
-    dispatch(requestConsortiumApproval(plantationAddress, userAddress))
+    dispatch(requestConsortiumApproval(plantationAddress, userAddress)),
+  onChangePlantationName: name => dispatch(setPlantationName(name))
 });
 
 export default connect(

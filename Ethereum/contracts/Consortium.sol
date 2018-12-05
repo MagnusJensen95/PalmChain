@@ -183,7 +183,7 @@ contract Consortium {
         }
 
     
-    function consumeFFBTokens( uint[] tokenIndexes) public {
+    function consumeFFBTokens(uint[] tokenIndexes) public {
         require(tokenIndexes.length > 0, "You must include tokens");
 
         //Calculate token weight from FFB tokens
@@ -254,14 +254,43 @@ contract Consortium {
         bool,
         bool,
         uint){
-TokenDefinitions.FFBToken memory token = FFBTokens[index];
+        TokenDefinitions.FFBToken memory token = FFBTokens[index];
 
-return(token.weight, token.plantationOrigin, token.owner, 
+        return(token.weight, token.plantationOrigin, token.owner, 
        token.newOwner, token.harvestTimeStamp,
        token.RSPOCertified, token.processed, token.tokenId);
 
-            
+           
         }
+
+
+    function getUnprocessedTokenIndexes() public view returns (uint[] ){
+
+        uint size = FFBTokens.length;
+        uint counter = 0;
+
+        uint[] memory indexes = new uint[](size);
+                 for (uint i=0; i<size; i++) {
+                     if(!FFBTokens[i].processed){
+                         indexes[counter] = i;
+                         counter++;
+
+                     }
+           }
+           uint[] memory fittedArray = new uint[](counter);
+             for (uint j=0; j<size; j++) {
+                    
+                         fittedArray[j] = indexes[j];                                
+           }
+           return fittedArray;
+    }
+
+        function getCoTokenAmount() public view returns (uint) {
+
+        return COTokens.length;
+    }
+
+    
 
  
  

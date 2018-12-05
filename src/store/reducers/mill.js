@@ -1,10 +1,15 @@
-import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES } from "../actions/types";
+import {
+  SET_MILL_ADDRESS,
+  SET_MILL_PROPERTIES,
+  SET_COTOKENS
+} from "../actions/types";
 
 const initialState = {
   millAddress: "",
   millName: "Test Mill",
   GPSLongitude: "Test GPSLongitude",
-  GPSLatitude: "Test GPSLatitude"
+  GPSLatitude: "Test GPSLatitude",
+  coTokens: []
 };
 
 const MillReducer = (state = initialState, action) => {
@@ -13,6 +18,12 @@ const MillReducer = (state = initialState, action) => {
       return {
         ...state,
         millAddress: action.millAddress
+      };
+    }
+    case SET_COTOKENS: {
+      return {
+        ...state,
+        coTokens: action.coTokens
       };
     }
     case SET_MILL_PROPERTIES: {

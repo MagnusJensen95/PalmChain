@@ -6,7 +6,11 @@ import {
 
 import { consortiumDeployer } from "../../utils/contractDeploymentInstance";
 import { plantationInstance } from "../../utils/plantationInstance";
-import { mapToPlantation, isZeroAddress, mapToFFBToken } from "../../utils/mappings";
+import {
+  mapToPlantation,
+  isZeroAddress,
+  mapToFFBToken
+} from "../../utils/mappings";
 
 export const setTokensSubmittedFromPlantation = tokens => {
   return {
@@ -29,9 +33,21 @@ export const setPlantationProperties = plantationProperties => {
   };
 };
 
-//fetch tokens submitted by this plantation
-export const fetchTokensSubmitted = address => {
-  return async dispatch => { };
+export const setPlantationName = newName => {
+  return async (dispatch, getState) => {
+    let plantationAddress = getState().plantationReducer.plantationAddress;
+    let userAddress = getState().authenticationReducer.userAddress;
+
+    let plantation = plantationInstance(plantationAddress);
+
+    await plantation.methods.setPlantationName(newName).send({
+      from: userAddress,
+      gas: 4712388,
+      gasPrice: 100000000000
+    });
+
+    dispatch(fetchPlantationInformation(plantationAddress, userAddress));
+  };
 };
 
 //Fetch plantation address belonging to currently signed in user (if he is owner of a plantation)
@@ -69,7 +85,7 @@ export const identifyPlantationAddressByOwner = (
   };
 };
 
-//Fetch whether plantation is approved or pending approvel / has not sent approval request.
+//Fetch wether plantation is approved or pending approvel / has not sent approval request.
 export const fetchPlantationInformation = (plantationAddress, userAddress) => {
   return async dispatch => {
     let plantation = plantationInstance(plantationAddress);
@@ -87,7 +103,6 @@ export const fetchPlantationInformation = (plantationAddress, userAddress) => {
 //Submit ffb token from selected user address
 export const submitFFBToken = (weight, date) => {
   return async (dispatch, getState) => {
-
     let plantationAddress = getState().plantationReducer.plantationAddress;
     let userAddress = getState().authenticationReducer.userAddress;
 
@@ -99,27 +114,34 @@ export const submitFFBToken = (weight, date) => {
       gasPrice: 100000000000
     });
 
+    dispatch(fetchTokensSubmitted());
+  };
+};
+
+//fetch tokens submitted by this plantation
+export const fetchTokensSubmitted = () => {
+  return async (dispatch, getState) => {
+    let plantationAddress = getState().plantationReducer.plantationAddress;
+    let userAddress = getState().authenticationReducer.userAddress;
+
+    let plantation = plantationInstance(plantationAddress);
 
     let amount = await plantation.methods.getTokenAmount().call({
       from: userAddress
-    })
+    });
 
     let tokenCollection = [];
     for (let i = 0; i < amount; i++) {
       let token = await plantation.methods.FFBTokens(i).call({
         from: userAddress
-      })
+      });
       token = mapToFFBToken(token);
 
       tokenCollection.push(token);
     }
 
-    dispatch(setTokensSubmittedFromPlantation(tokenCollection))
-
-
-
-
-  }
+    dispatch(setTokensSubmittedFromPlantation(tokenCollection));
+  };
 };
 
 export const requestConsortiumApproval = (plantationAddress, userAddress) => {
