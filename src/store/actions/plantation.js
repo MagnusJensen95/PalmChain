@@ -11,6 +11,7 @@ import {
   isZeroAddress,
   mapToFFBToken
 } from "../../utils/mappings";
+import { consortiumInstance } from "../../utils/consortiumInstance";
 
 export const setTokensSubmittedFromPlantation = tokens => {
   return {
@@ -82,6 +83,7 @@ export const identifyPlantationAddressByOwner = (
 
     dispatch(setPlantationProperties(information));
     dispatch(setSelectedPlantation(plantationAddress));
+    dispatch(fetchTokensSubmitted());
   };
 };
 
@@ -103,7 +105,7 @@ export const fetchPlantationInformation = (plantationAddress, userAddress) => {
 //Submit ffb token from selected user address
 export const submitFFBToken = (weight, date) => {
   return async (dispatch, getState) => {
-    let plantationAddress = getState().plantationReducer.plantationAddress;
+    let plantationAddress = getState().plantationReducer.plantationProperties.address;
     let userAddress = getState().authenticationReducer.userAddress;
 
     let plantation = plantationInstance(plantationAddress);
@@ -124,15 +126,33 @@ export const fetchTokensSubmitted = () => {
     let plantationAddress = getState().plantationReducer.plantationAddress;
     let userAddress = getState().authenticationReducer.userAddress;
 
+    let consortiumAddress = getState().consortiumListReducer
+      .selectedConsortiumAddress;
+
+    let consortiumInstanceSelected = consortiumInstance(consortiumAddress);
+    if (isZeroAddress(plantationAddress)) {
+      return;
+    }
     let plantation = plantationInstance(plantationAddress);
 
     let amount = await plantation.methods.getTokenAmount().call({
       from: userAddress
     });
 
+    let tokenIndexes = await plantation.methods.getTokenIds().call({
+      from: userAddress
+    });
+
+
+    let parsedIndexes = [];
+
+    for (let index of tokenIndexes) {
+      parsedIndexes.push(parseInt(index))
+    }
+
     let tokenCollection = [];
-    for (let i = 0; i < amount; i++) {
-      let token = await plantation.methods.FFBTokens(i).call({
+    for (let i = 0; i < parsedIndexes.length; i++) {
+      let token = await consortiumInstanceSelected.methods.FFBTokens(parsedIndexes[i]).call({
         from: userAddress
       });
       token = mapToFFBToken(token);

@@ -54,19 +54,19 @@ export class Login extends Component {
   render() {
     const authtypes = [plantationOwner, millOwner, rspoAdmin];
     const title = this.props.userAuthenticated
-      ? "Signed in as " + this.props.userType
-      : "Sign In";
+      ? "Logged in as " + this.props.userType
+      : "Log In";
     const signOutButton = this.props.userAuthenticated ? (
       <Button
         variant="outlined"
         color="secondary"
         onClick={() => this.props.onLogoutAttempt()}
       >
-        Sign Out
+        Log Out
       </Button>
     ) : (
-      <></>
-    );
+        <></>
+      );
     return (
       <div>
         <TopBar title={title}>{signOutButton}</TopBar>
@@ -86,8 +86,8 @@ export class Login extends Component {
               />
             </div>
           ) : (
-            <></>
-          )}
+              <></>
+            )}
         </div>
       </div>
     );

@@ -1,4 +1,4 @@
-import { SET_RSPO_ADMIN } from "../actions/types";
+import { SET_RSPO_ADMIN, RESET_RSPO } from "../actions/types";
 
 const initialState = {
     rspoAdministrator: ""
@@ -12,7 +12,9 @@ const RSPOReducer = (state = initialState, action) => {
                 rspoAdministrator: action.rspoAdministrator
             };
         }
-
+        case RESET_RSPO: {
+            return initialState;
+        }
         default:
             return state;
     }

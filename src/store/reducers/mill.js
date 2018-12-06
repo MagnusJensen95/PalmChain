@@ -1,7 +1,9 @@
 import {
   SET_MILL_ADDRESS,
   SET_MILL_PROPERTIES,
-  SET_COTOKENS
+  SET_COTOKENS,
+  RESET_MILL,
+  SET_POSSIBLE_FFBTOKENS
 } from "../actions/types";
 
 const initialState = {
@@ -9,7 +11,8 @@ const initialState = {
   millName: "Test Mill",
   GPSLongitude: "Test GPSLongitude",
   GPSLatitude: "Test GPSLatitude",
-  coTokens: []
+  coTokens: [],
+  possibleTokens: []
 };
 
 const MillReducer = (state = initialState, action) => {
@@ -25,6 +28,15 @@ const MillReducer = (state = initialState, action) => {
         ...state,
         coTokens: action.coTokens
       };
+    }
+    case SET_POSSIBLE_FFBTOKENS: {
+      return {
+        ...state,
+        possibleTokens: action.possibleTokens
+      };
+    }
+    case RESET_MILL: {
+      return initialState;
     }
     case SET_MILL_PROPERTIES: {
       return {

@@ -3,20 +3,38 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TopBar from "../../components/TopBar/TopBar";
 import CoTokenList from "./CoTokenList";
-import { fetchPossibleTokens, createCoToken } from "../../store/actions/mill";
+import { fetchPossibleTokens, createCoToken, getCoTokensCreated } from "../../store/actions/mill";
 import { millOwner } from "../../store/models/authentication";
 import { Button } from "@material-ui/core";
 
+import './mill.css'
+
 export class Mill extends Component {
+
+  state = {
+
+    selectedTokens: []
+  }
+
+  componentDidMount() {
+    if (this.props.authType !== millOwner) {
+      return;
+    }
+
+    this.props.onFetchCoTokens();
+    this.props.onFetchPossibleTokens();
+  }
+
   render() {
     return (
       <div>
         <TopBar title={"Mill Information"} />
 
         {this.props.authType === millOwner ? (
-          <div>
+          <div className="grandMillContainer">
             <div className="coTokenCreationContainer">
               <CoTokenCreator
+                selectedTokens={this.state.selectedTokens}
                 handleTokenCreation={indexes =>
                   this.props.onCoTokenCreation(indexes)
                 }
@@ -24,14 +42,13 @@ export class Mill extends Component {
             </div>
             <div className="coTokenListContainer">
               <CoTokenList
-                handleFetch={() => this.props.onFetchRawTokens()}
                 tokens={this.props.coTokens}
               />
             </div>
           </div>
         ) : (
-          <div />
-        )}
+            <div />
+          )}
       </div>
     );
   }
@@ -41,11 +58,11 @@ const CoTokenCreator = props => {
   return (
     <div>
       <Button
-        onClick={() => props.handleTokenCreation([0, 1])}
-        variant="outlined"
+        onClick={() => props.handleTokenCreation(props.selectedTokens)}
+        variant="contained"
         color="primary"
       >
-        Create Token
+        Create Crude Oil Token
       </Button>
     </div>
   );
@@ -57,8 +74,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFetchRawTokens: () => dispatch(fetchPossibleTokens()),
-  onCoTokenCreation: indexes => dispatch(createCoToken(indexes))
+  onCoTokenCreation: indexes => dispatch(createCoToken(indexes)),
+  onFetchCoTokens: () => dispatch(getCoTokensCreated()),
+  onFetchPossibleTokens: () => dispatch(fetchPossibleTokens())
 });
 
 export default connect(

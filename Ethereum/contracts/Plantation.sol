@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 
 
+
 import './Consortium.sol';
 
 
@@ -19,6 +20,7 @@ contract Plantation {
 
     
     TokenDefinitions.FFBToken[] public FFBTokens;
+    uint[] tokenIndexes;
     uint capacity;
     string GPSLongitude;
     string GPSlatitude; 
@@ -100,29 +102,16 @@ contract Plantation {
     }
 
     function saveFFBToken(
-        uint weight,
-        address plantationOrigin,
-        address owner,
-        address newOwner,
-        uint harvestTimeStamp,
-        bool RSPOCertified,
-        bool processed,
+        
         uint tokenId,
-        address callOrigin) public {
+        address callOrigin
+      ) public {
 
         require(callOrigin == plantationOwner, "this function is only callable as a result of an added token in the parent contract");
 
-        TokenDefinitions.FFBToken memory token = TokenDefinitions.FFBToken({
-         weight: weight,
-         plantationOrigin: plantationOrigin,
-         owner: owner,
-         newOwner: newOwner,
-         harvestTimeStamp: harvestTimeStamp,
-         RSPOCertified: RSPOCertified,
-         processed: processed,
-         tokenId: tokenId});
+
     
-        FFBTokens.push(token);
+        tokenIndexes.push(tokenId);
 
 
     }
@@ -132,16 +121,9 @@ contract Plantation {
         return FFBTokens.length;
     }
 
-    //  function getTokenIds() public view  returns (uint[] memory idCollection) {
-    //       uint length = FFBTokens.length;
-     
-
-    //      for (uint i=0; i<FFBTokens.length; i++) {
-
-    //          idCollection[i] = FFBTokens[i].tokenId;
-    //       }
-    //     return idCollection;
-    // }
+     function getTokenIds() public view  returns (uint[] memory idCollection) {
+       return tokenIndexes;
+    }
        
 
     

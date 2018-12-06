@@ -1,7 +1,7 @@
-import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES, SET_COTOKENS } from "./types";
+import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES, SET_COTOKENS, SET_POSSIBLE_FFBTOKENS } from "./types";
 import { consortiumInstance } from "../../utils/consortiumInstance";
 import web3 from "../../utils/getWeb3";
-import { mapToMill } from "../../utils/mappings";
+import { mapToMill, mapToCOToken } from "../../utils/mappings";
 
 export const setMillAddressLocal = address => {
   return {
@@ -14,6 +14,13 @@ export const setCoTokens = tokens => {
   return {
     type: SET_COTOKENS,
     coTokens: tokens
+  };
+};
+
+export const setPossibleTokens = tokens => {
+  return {
+    type: SET_POSSIBLE_FFBTOKENS,
+    possibleTokens: tokens
   };
 };
 
@@ -38,6 +45,13 @@ export const fetchPossibleTokens = () => {
     let result = await consortium.methods.getUnprocessedTokenIndexes().call({
       from: userAddress
     });
+
+    for (let element of result) {
+      element = parseInt(element)
+    }
+
+    dispatch(setPossibleTokens(result));
+
   };
 };
 
@@ -100,15 +114,17 @@ export const getCoTokensCreated = () => {
       from: userAddress
     });
 
+
     let tokenCollection = [];
     for (let i = 0; i < amount; i++) {
-      let token = await consortium.methods.COTokens(i).call({
+      let token = await consortium.methods.getCoTokenAtIndex(i).call({
         from: userAddress
       });
-      console.log(token);
+      token = mapToCOToken(token);
+      tokenCollection.push(token);
     }
 
-    dispatch(setCoTokens(tokens));
+    dispatch(setCoTokens(tokenCollection));
   };
 };
 

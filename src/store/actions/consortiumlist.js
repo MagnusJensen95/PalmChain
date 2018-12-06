@@ -3,7 +3,10 @@ import {
   SET_CURRENT_CONSORTIUM_ADDRESS,
   SET_CURRENT_CONSORTIUMDEPLOYER_ADDRESS,
   SET_AVAILABLE_PLANTATIONS,
-  SET_PLANTATION_INFORMATION_LIST
+  SET_PLANTATION_INFORMATION_LIST,
+  RESET_MILL,
+  RESET_RSPO,
+  RESET_PLANTATION
 } from "./types";
 
 import {
@@ -16,6 +19,7 @@ import { plantationInstance } from "../../utils/plantationInstance";
 import { mapToPlantation } from "../../utils/mappings";
 import { fetchRSPOAdministrator } from "./rspo";
 import { identifyPlantationAddressByOwner } from "./plantation";
+import { signUserOut } from "./authentication";
 
 export const setAvaibleConsortiumList = list => {
   return {
@@ -29,6 +33,11 @@ export const setSelectedConsortiumAddress = address => {
     let deployerAddress = getState().consortiumListReducer
       .consortiumDeployerAddress;
     let rspoAddress = getState().rspoReducer.rspoAdministrator;
+
+    dispatch({ type: RESET_MILL });
+    dispatch({ type: RESET_RSPO });
+    dispatch({ type: RESET_PLANTATION });
+    dispatch(signUserOut());
     dispatch(fetchRSPOAdministrator(address));
 
     dispatch(selectConsortiumAddress(address));

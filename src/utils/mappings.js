@@ -42,3 +42,21 @@ export const mapToFFBToken = token => {
 
   return newToken;
 }
+
+
+
+export const mapToCOToken = tokenResponse => {
+
+  let newToken = {
+    weight: tokenResponse[0],
+    millOrigin: tokenResponse[1],
+    owner: tokenResponse[2],
+    newOwner: tokenResponse[3],
+    containedFFB: tokenResponse[4],
+    RSPOCertified: tokenResponse[5],
+    processed: tokenResponse[6],
+    tokenId: tokenResponse[7]
+  }
+
+  return newToken;
+}

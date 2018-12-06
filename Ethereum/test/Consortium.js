@@ -237,6 +237,7 @@ contract("Consortium functionality test", async accounts => {
         }
       );
 
+
       truffleAssert.eventEmitted(
         tokenSubmit,
         "FFBTokenSubmitted",
@@ -246,16 +247,27 @@ contract("Consortium functionality test", async accounts => {
         }
       );
     }
+    let result = await instance.getUnprocessedTokenIndexes({
+      from: millAddress
+    })
+    let result1 = await instance.FFBTokens(0, {
+      from: millAddress
+    })
+
+    console.log(result1);
 
 
     let COTokenRes = await instance.consumeFFBTokens(indexArray, {
       from: millAddress
     });
+
     let oilIndex = 0;
     truffleAssert.eventEmitted(COTokenRes, "COTokenSubmitted", coTokenIndex => {
       oilIndex = coTokenIndex.index;
       return true;
     });
+    let isProcessedFFB = await instance.FFBTokens(0);
+
 
     let newOilToken = await instance.COTokens(oilIndex);
     let tokenWeight = newOilToken[0].toNumber();

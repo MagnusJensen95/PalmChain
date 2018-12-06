@@ -12,7 +12,7 @@ import {
 const CoTokenList = props => {
   return (
     <div>
-      <Button onClick={() => props.handleFetch()}>CLICK ME</Button>
+
       <Table>
         <TableHead>
           <TableRow>

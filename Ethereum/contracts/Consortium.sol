@@ -1,4 +1,6 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.24;
+
+
 import './Plantation.sol';
 
 
@@ -13,7 +15,6 @@ library TokenDefinitions {
         bool RSPOCertified;
         bool processed;
         uint tokenId;
-    
 
     } 
 
@@ -32,8 +33,6 @@ library TokenDefinitions {
 
 contract Consortium {
     
- 
-
     struct Mill {
         address associatedAddress;
         string GPSLongitude;
@@ -69,8 +68,6 @@ contract Consortium {
 
     TokenDefinitions.FFBToken[] public FFBTokens;
 
-
-   
      TokenDefinitions.COToken[] public COTokens;
     
     address public RSPOAdministrator;
@@ -168,16 +165,7 @@ contract Consortium {
 
              Plantation p = Plantation(msg.sender);
              p.emitFFBEvent( activeMill.associatedAddress, FFBTokens.length -1);
-             p.saveFFBToken(
-                 token.weight,
-                 token.plantationOrigin,
-                 token.owner,
-                 token.newOwner,
-                 token.harvestTimeStamp,
-                 token.RSPOCertified,
-                 token.processed,
-                 token.tokenId,
-                 plantationOwner);
+             p.saveFFBToken(token.tokenId, plantationOwner);
         
        
         }
@@ -263,8 +251,26 @@ contract Consortium {
            
         }
 
+           function getCoTokenAtIndex(uint index) public view returns(      
+        uint,
+        address,
+        address,
+        address,
+        uint[],
+        bool,
+        bool,
+        uint){
+        TokenDefinitions.COToken memory token = COTokens[index];
 
-    function getUnprocessedTokenIndexes() public view returns (uint[] ){
+        return(token.weight, token.millOrigin, token.owner, 
+       token.newOwner, token.containedFFB,
+       token.RSPOCertified, token.processed, token.tokenId);
+
+           
+        }
+
+
+    function getUnprocessedTokenIndexes() public view returns (uint[]){
 
         uint size = FFBTokens.length;
         uint counter = 0;
@@ -278,7 +284,7 @@ contract Consortium {
                      }
            }
            uint[] memory fittedArray = new uint[](counter);
-             for (uint j=0; j<size; j++) {
+             for (uint j=0; j<counter; j++) {
                     
                          fittedArray[j] = indexes[j];                                
            }

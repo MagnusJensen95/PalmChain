@@ -25,6 +25,8 @@ export const SET_DRAWER_STATE = "@@SET_DRAWER_STATE";
 export const SET_MILL_ADDRESS = "@@SET_MILL_ADDRESS";
 export const SET_MILL_PROPERTIES = "@@SET_MILL_PROPERTIES";
 export const SET_COTOKENS = "@@SET_COTOKENS";
+export const SET_POSSIBLE_FFBTOKENS = "@@SET_POSSIBLE_FFBTOKENS";
+
 
 //Authentication Related
 export const SET_AUTHENTICATED_TYPE = "@@SET_AUTHENTICATED_TYPE";
@@ -32,3 +34,8 @@ export const AUTHENTICATE_USER = "@@AUTHENTICATE_USER";
 export const SET_ACCOUNTS_LIST = "@@SET_ACCOUNTS_LIST";
 export const SET_USER_ADDRESS = "@@SET_USER_ADDRESS";
 export const RESET = "@@RESET_STATE";
+
+//Resetting
+export const RESET_MILL = "@@RESET_MILL";
+export const RESET_PLANTATION = "@@RESET_PLANTATION";
+export const RESET_RSPO = "@@RESET_RSPO";

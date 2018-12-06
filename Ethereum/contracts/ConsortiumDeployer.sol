@@ -1,4 +1,5 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.24;
+
 
 import './Consortium.sol';
 import './Plantation.sol';

@@ -7,7 +7,8 @@ import {
   fetchPlantationInformation,
   identifyPlantationAddressByOwner,
   requestConsortiumApproval,
-  setPlantationName
+  setPlantationName,
+  fetchTokensSubmitted
 } from "../../store/actions/plantation";
 import { isZeroAddress } from "../../utils/mappings";
 import { plantationOwner } from "../../store/models/authentication";
@@ -60,6 +61,7 @@ export class Plantation extends Component {
         this.props.userAddress,
         this.props.deployerAddress
       );
+
       return;
     }
     if (
@@ -72,6 +74,7 @@ export class Plantation extends Component {
       this.props.plantationAddress,
       this.props.userAddress
     );
+
   }
 
   handleEditToggle(editing) {
@@ -170,11 +173,11 @@ export class Plantation extends Component {
               </div>
             </div>
           ) : (
-            requestApprovalButton
-          )
+              requestApprovalButton
+            )
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </div>
     );
   }
@@ -199,7 +202,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(identifyPlantationAddressByOwner(userAddress, deployerAddress)),
   onRequestApproval: (plantationAddress, userAddress) =>
     dispatch(requestConsortiumApproval(plantationAddress, userAddress)),
-  onChangePlantationName: name => dispatch(setPlantationName(name))
+  onChangePlantationName: name => dispatch(setPlantationName(name)),
+  onFetchTokens: () => dispatch(fetchTokensSubmitted())
 });
 
 export default connect(
