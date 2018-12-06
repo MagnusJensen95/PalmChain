@@ -22,13 +22,10 @@ export const mapToMill = response => {
 };
 
 export const isZeroAddress = address => {
-  return address === '0x0000000000000000000000000000000000000000';
+  return address === "0x0000000000000000000000000000000000000000";
 };
 
-
 export const mapToFFBToken = token => {
-
-
   let newToken = {
     RSPOCertified: token.RSPOCertified,
     harvestTimeStamp: token.harvestTimeStamp,
@@ -38,15 +35,12 @@ export const mapToFFBToken = token => {
     processed: token.processed,
     tokenId: token.tokenId,
     weight: token.weight
-  }
+  };
 
   return newToken;
-}
-
-
+};
 
 export const mapToCOToken = tokenResponse => {
-
   let newToken = {
     weight: tokenResponse[0],
     millOrigin: tokenResponse[1],
@@ -56,7 +50,7 @@ export const mapToCOToken = tokenResponse => {
     RSPOCertified: tokenResponse[5],
     processed: tokenResponse[6],
     tokenId: tokenResponse[7]
-  }
+  };
 
   return newToken;
-}
+};

@@ -1,4 +1,9 @@
-import { SET_MILL_ADDRESS, SET_MILL_PROPERTIES, SET_COTOKENS, SET_POSSIBLE_FFBTOKENS } from "./types";
+import {
+  SET_MILL_ADDRESS,
+  SET_MILL_PROPERTIES,
+  SET_COTOKENS,
+  SET_POSSIBLE_FFBTOKENS
+} from "./types";
 import { consortiumInstance } from "../../utils/consortiumInstance";
 import web3 from "../../utils/getWeb3";
 import { mapToMill, mapToCOToken } from "../../utils/mappings";
@@ -47,11 +52,10 @@ export const fetchPossibleTokens = () => {
     });
 
     for (let element of result) {
-      element = parseInt(element)
+      element = parseInt(element);
     }
 
     dispatch(setPossibleTokens(result));
-
   };
 };
 
@@ -114,7 +118,6 @@ export const getCoTokensCreated = () => {
       from: userAddress
     });
 
-
     let tokenCollection = [];
     for (let i = 0; i < amount; i++) {
       let token = await consortium.methods.getCoTokenAtIndex(i).call({
@@ -128,20 +131,30 @@ export const getCoTokensCreated = () => {
   };
 };
 
-export const createCoToken = indexes => {
+export const createCoToken = (length, map) => {
   return async (dispatch, getState) => {
+    let indexArray = [];
+
+    for (let i = 0; i < length; i++) {
+      let key = "" + i;
+      if (map.get(key)) {
+        indexArray.push(i);
+      }
+    }
+
     let consortiumAddress = getState().consortiumListReducer
       .selectedConsortiumAddress;
     let userAddress = getState().authenticationReducer.userAddress;
 
     let consortium = consortiumInstance(consortiumAddress);
 
-    await consortium.methods.consumeFFBTokens(indexes).send({
+    await consortium.methods.consumeFFBTokens(indexArray).send({
       from: userAddress,
       gas: 4712388,
       gasPrice: 100000000000
     });
 
     dispatch(getCoTokensCreated());
+    dispatch(fetchPossibleTokens());
   };
 };
