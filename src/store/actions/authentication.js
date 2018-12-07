@@ -3,7 +3,8 @@ import {
   AUTHENTICATE_USER,
   SET_ACCOUNTS_LIST,
   SET_USER_ADDRESS,
-  RESET
+  RESET,
+  RESET_PLANTATION
 } from "./types";
 
 import web3 from "../../utils/getWeb3";
@@ -61,6 +62,7 @@ export const signUserOut = () => {
     dispatch(setUserAuthenticated(false));
     dispatch(setAuthenticatedType(unauthorizedUser));
     dispatch({ type: RESET });
+    dispatch({ type: RESET_PLANTATION });
   };
 };
 

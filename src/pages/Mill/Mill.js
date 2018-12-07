@@ -37,7 +37,6 @@ export class Mill extends Component {
   };
 
   onSelectToken(key) {
-    console.log(key);
     let currentState = this.state.selectedTokens.get(key);
     if (currentState === undefined) {
       this.state.selectedTokens.set(key, false);
@@ -68,12 +67,13 @@ export class Mill extends Component {
               <CoTokenCreator
                 handleTokenSelection={key => this.onSelectToken(key)}
                 selectedTokens={this.state.selectedTokens}
-                handleTokenCreation={() =>
+                handleTokenCreation={() => {
                   this.props.onCoTokenCreation(
                     this.props.possibleTokens.length,
                     this.state.selectedTokens
-                  )
-                }
+                  );
+                  this.setState({ selectedTokens: new Map() });
+                }}
                 tokens={this.props.possibleTokens}
               />
             </div>
@@ -116,6 +116,7 @@ const CoTokenCreator = props => {
                 onClick={() => props.handleTokenCreation()}
                 variant="contained"
                 color="primary"
+                disabled={props.tokens.length === 0}
               >
                 Create
               </Button>

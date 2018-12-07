@@ -66,7 +66,7 @@ class TemporaryDrawer extends React.Component {
           <Link to="/login" className={classes.navlink}>
             <ListItem button>
               <ListItemText
-                primary={this.props.userAuthenticated ? "Sign Out" : "Log In"}
+                primary={this.props.userAuthenticated ? "Log Out" : "Log In"}
               />
             </ListItem>
           </Link>

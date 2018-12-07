@@ -133,15 +133,17 @@ export const getCoTokensCreated = () => {
 
 export const createCoToken = (length, map) => {
   return async (dispatch, getState) => {
-    let indexArray = [];
+    let possibleTokens = getState().millReducer.possibleTokens;
 
+    let indexArray = [];
+    console.log(length);
+    console.log(map);
     for (let i = 0; i < length; i++) {
-      let key = "" + i;
-      if (map.get(key)) {
-        indexArray.push(i);
+      if (map.get(possibleTokens[i])) {
+        indexArray.push(possibleTokens[i]);
       }
     }
-
+    console.log(indexArray);
     let consortiumAddress = getState().consortiumListReducer
       .selectedConsortiumAddress;
     let userAddress = getState().authenticationReducer.userAddress;

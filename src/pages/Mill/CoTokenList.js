@@ -19,11 +19,11 @@ const CoTokenList = props => {
             <TableCell>Weight (kg)</TableCell>
             <TableCell>FFB Id's Included</TableCell>
             <TableCell>Processed</TableCell>
+            <TableCell>Id</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {props.tokens.map((element, index) => {
-            console.log(element);
             let includedTokenString = "[";
 
             for (let id of element.containedFFB) {
@@ -41,6 +41,7 @@ const CoTokenList = props => {
                 <TableCell>{element.weight}</TableCell>
                 <TableCell>{includedTokenString}</TableCell>
                 <TableCell>{element.processed ? "Yes" : "No"}</TableCell>
+                <TableCell>{element.tokenId}</TableCell>
               </TableRow>
             );
           })}
