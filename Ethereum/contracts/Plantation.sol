@@ -107,18 +107,8 @@ contract Plantation {
         address callOrigin
       ) public {
 
-        require(callOrigin == plantationOwner, "this function is only callable as a result of an added token in the parent contract");
-
-
-    
+        require(callOrigin == plantationOwner, "this function is only callable as a result of an added token in the parent contract");   
         tokenIndexes.push(tokenId);
-
-
-    }
-
-    function getTokenAmount() public view returns (uint) {
-
-        return FFBTokens.length;
     }
 
      function getTokenIds() public view  returns (uint[] memory idCollection) {
