@@ -105,7 +105,8 @@ export const fetchPlantationInformation = (plantationAddress, userAddress) => {
 //Submit ffb token from selected user address
 export const submitFFBToken = (weight, date) => {
   return async (dispatch, getState) => {
-    let plantationAddress = getState().plantationReducer.plantationProperties.address;
+    let plantationAddress = getState().plantationReducer.plantationProperties
+      .address;
     let userAddress = getState().authenticationReducer.userAddress;
 
     let plantation = plantationInstance(plantationAddress);
@@ -143,18 +144,19 @@ export const fetchTokensSubmitted = () => {
       from: userAddress
     });
 
-
     let parsedIndexes = [];
 
     for (let index of tokenIndexes) {
-      parsedIndexes.push(parseInt(index))
+      parsedIndexes.push(parseInt(index));
     }
 
     let tokenCollection = [];
     for (let i = 0; i < parsedIndexes.length; i++) {
-      let token = await consortiumInstanceSelected.methods.FFBTokens(parsedIndexes[i]).call({
-        from: userAddress
-      });
+      let token = await consortiumInstanceSelected.methods
+        .FFBTokens(parsedIndexes[i])
+        .call({
+          from: userAddress
+        });
       token = mapToFFBToken(token);
 
       tokenCollection.push(token);
