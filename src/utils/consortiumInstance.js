@@ -8,22 +8,7 @@ export const consortiumInstance = address => {
   }
 
   let contract = new web3.eth.Contract(Consortium.abi, address);
-  // contract.events
-  //   .PlantationSubmissionRequested(
-  //     {
-  //       fromBlock: 0
-  //     },
-  //     function(error, event) {
-  //       console.log("Event should be wmitted" + error);
-  //     }
-  //   )
-  //   .on("data", function(event) {
-  //     console.log("event"); // same results as the optional callback above
-  //   })
-  //   .on("changed", function(event) {
-  //     // remove event from local database
-  //   })
-  //   .on("error", "console.error");
+
 
   return contract;
 };

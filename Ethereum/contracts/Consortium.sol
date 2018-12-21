@@ -52,7 +52,7 @@ contract Consortium {
     
     Mill public activeMill;
 
-   mapping (address => bool) public plantations;
+ 
 
    address[] public plantationAddresses;
     
@@ -68,13 +68,9 @@ contract Consortium {
 
     TokenDefinitions.FFBToken[] public FFBTokens;
 
-     TokenDefinitions.COToken[] public COTokens;
+    TokenDefinitions.COToken[] public COTokens;
     
     address public RSPOAdministrator;
-    
-    mapping (bytes32 => bool) public COExists;
-    
-    mapping (bytes32 => bool) public FFBExists;
 
     uint[] public tokensToInclude;
     
@@ -105,10 +101,11 @@ contract Consortium {
         
         //Index may be derived from planatation hash rather than passed with index
 
-        plantations[plantationToAdd] = true;
+  
         plantationAddresses.push(plantationToAdd);
         
         registeredPlantations[plantationToAdd] = true;
+       
         delete pendingPlantationRequests[plantationToAdd];
         emit PlantationSubmissionApproved(plantationToAdd);
 
@@ -143,6 +140,7 @@ contract Consortium {
 
         //Find date løsning
         //Assume call comes from plantation contract => msg.sender is valid
+
         require(registeredPlantations[msg.sender], "Access Denied, no permission detected");
         require(activeMill.associatedAddress != address(0x0000000000000000000000000000000000000000), "No Mill instance has been configured yet");
         

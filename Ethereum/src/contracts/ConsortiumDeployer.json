@@ -210,7 +210,7 @@
         "id": 728,
         "nodeType": "ImportDirective",
         "scope": 888,
-        "sourceUnit": 1141,
+        "sourceUnit": 1198,
         "src": "28:26:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -230,7 +230,7 @@
         "baseContracts": [],
         "contractDependencies": [
           725,
-          1140
+          1197
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -523,7 +523,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1093:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -648,7 +648,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "1271:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -714,10 +714,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "1244:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -786,7 +786,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1403:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1018,7 +1018,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1714:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1076,7 +1076,7 @@
                       "nodeType": "NewExpression",
                       "src": "1678:14:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_Plantation_$1197_$",
                         "typeString": "function (address,address,address) returns (contract Plantation)"
                       },
                       "typeName": {
@@ -1084,10 +1084,10 @@
                         "id": 796,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "1682:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       }
@@ -1102,7 +1102,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1678:62:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -1214,7 +1214,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1842:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2161,7 +2161,7 @@
         "id": 728,
         "nodeType": "ImportDirective",
         "scope": 888,
-        "sourceUnit": 1141,
+        "sourceUnit": 1198,
         "src": "28:26:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2181,7 +2181,7 @@
         "baseContracts": [],
         "contractDependencies": [
           725,
-          1140
+          1197
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2474,7 +2474,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1093:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2599,7 +2599,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "1271:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -2665,10 +2665,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "1244:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2737,7 +2737,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1403:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2969,7 +2969,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1714:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3027,7 +3027,7 @@
                       "nodeType": "NewExpression",
                       "src": "1678:14:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_Plantation_$1197_$",
                         "typeString": "function (address,address,address) returns (contract Plantation)"
                       },
                       "typeName": {
@@ -3035,10 +3035,10 @@
                         "id": 796,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "1682:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       }
@@ -3053,7 +3053,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1678:62:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -3165,7 +3165,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "1842:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4091,5 +4091,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-20T23:26:40.834Z"
+  "updatedAt": "2018-12-20T23:26:07.001Z"
 }

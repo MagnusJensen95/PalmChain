@@ -1,6 +1,5 @@
 
 import ConsortiumDeployer from "../contracts/ConsortiumDeployer.json";
-//import address from '../factoryAddress'
 import web3 from './getWeb3';
 
 export const consortiumDeployer = (address) => {
@@ -8,8 +7,6 @@ export const consortiumDeployer = (address) => {
     return new web3.eth.Contract(ConsortiumDeployer.abi, address);
 
 }
-
-
 
 export const deployNewConsortiumDeployer = async (userAddress) => {
 
@@ -22,11 +19,6 @@ export const deployNewConsortiumDeployer = async (userAddress) => {
         gasPrice: 100000000000
 
     });
-
-
-
-
-
     return deployment._address;
 }
 

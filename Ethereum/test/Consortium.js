@@ -178,7 +178,7 @@ contract("Consortium functionality test", async accounts => {
       }
     );
 
-    let amount = await plantationInstance.getTokenAmount();
+
 
 
 
@@ -253,8 +253,6 @@ contract("Consortium functionality test", async accounts => {
     let result1 = await instance.FFBTokens(0, {
       from: millAddress
     })
-
-    console.log(result1);
 
 
     let COTokenRes = await instance.consumeFFBTokens(indexArray, {

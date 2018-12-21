@@ -1,5 +1,8 @@
 pragma solidity ^0.4.24;
 
+import './Plantation.sol';
+import './Consortium.sol';
+
 contract ConsortiumDeployer {
 
     //List of addresses of consortium contracts deployed by this contract

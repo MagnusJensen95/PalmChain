@@ -582,7 +582,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 726,
-        "sourceUnit": 1141,
+        "sourceUnit": 1198,
         "src": "30:26:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1813,7 +1813,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "1852:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -1889,10 +1889,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "1844:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2090,7 +2090,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1155,
+                              "referencedDeclaration": 1212,
                               "src": "2266:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -2161,10 +2161,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "2235:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2201,7 +2201,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "2372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2291,7 +2291,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "2430:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2666,7 +2666,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -2674,10 +2674,10 @@
                         "id": 173,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "2929:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -2714,10 +2714,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "2944:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -2731,7 +2731,7 @@
                     "nodeType": "FunctionCall",
                     "src": "2944:27:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -2768,7 +2768,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "3012:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2810,7 +2810,7 @@
                         "referencedDeclaration": 174,
                         "src": "2982:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -2821,7 +2821,7 @@
                       "lValueRequested": false,
                       "memberName": "setPlantationApproved",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1073,
+                      "referencedDeclaration": 1130,
                       "src": "2982:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bool_$_t_address_$returns$__$",
@@ -3288,7 +3288,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "3768:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -3354,10 +3354,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "3738:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3524,10 +3524,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "3832:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3730,7 +3730,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4284:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3759,7 +3759,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4313:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4007,7 +4007,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -4015,10 +4015,10 @@
                         "id": 276,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "4570:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -4038,7 +4038,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4596:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4071,10 +4071,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "4585:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -4088,7 +4088,7 @@
                     "nodeType": "FunctionCall",
                     "src": "4585:22:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -4215,7 +4215,7 @@
                         "referencedDeclaration": 277,
                         "src": "4623:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -4226,7 +4226,7 @@
                       "lValueRequested": false,
                       "memberName": "emitFFBEvent",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1109,
+                      "referencedDeclaration": 1166,
                       "src": "4623:14:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -4318,7 +4318,7 @@
                         "referencedDeclaration": 277,
                         "src": "4705:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -4329,7 +4329,7 @@
                       "lValueRequested": false,
                       "memberName": "saveFFBToken",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1130,
+                      "referencedDeclaration": 1187,
                       "src": "4705:14:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_address_$returns$__$",
@@ -4572,10 +4572,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "4861:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4623,7 +4623,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "4991:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -4715,10 +4715,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "4983:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4965,7 +4965,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1155,
+                                  "referencedDeclaration": 1212,
                                   "src": "5282:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -5026,10 +5026,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              1158,
-                              1159
+                              1215,
+                              1216
                             ],
-                            "referencedDeclaration": 1159,
+                            "referencedDeclaration": 1216,
                             "src": "5235:7:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5191,10 +5191,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              1158,
-                              1159
+                              1215,
+                              1216
                             ],
-                            "referencedDeclaration": 1159,
+                            "referencedDeclaration": 1216,
                             "src": "5364:7:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5963,7 +5963,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1155,
+                                "referencedDeclaration": 1212,
                                 "src": "6073:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -6666,7 +6666,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 1155,
+                                    "referencedDeclaration": 1212,
                                     "src": "6732:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -7037,7 +7037,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -7045,10 +7045,10 @@
                         "id": 505,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "6978:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -7085,10 +7085,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "6993:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -7102,7 +7102,7 @@
                     "nodeType": "FunctionCall",
                     "src": "6993:22:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -7139,7 +7139,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "7066:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -7181,7 +7181,7 @@
                         "referencedDeclaration": 506,
                         "src": "7035:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -7192,7 +7192,7 @@
                       "lValueRequested": false,
                       "memberName": "setPlantationApproved",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1073,
+                      "referencedDeclaration": 1130,
                       "src": "7035:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bool_$_t_address_$returns$__$",
@@ -9797,7 +9797,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 726,
-        "sourceUnit": 1141,
+        "sourceUnit": 1198,
         "src": "30:26:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -11028,7 +11028,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "1852:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -11104,10 +11104,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "1844:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -11305,7 +11305,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1155,
+                              "referencedDeclaration": 1212,
                               "src": "2266:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -11376,10 +11376,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "2235:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -11416,7 +11416,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "2372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -11506,7 +11506,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "2430:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -11881,7 +11881,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -11889,10 +11889,10 @@
                         "id": 173,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "2929:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -11929,10 +11929,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "2944:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -11946,7 +11946,7 @@
                     "nodeType": "FunctionCall",
                     "src": "2944:27:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -11983,7 +11983,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "3012:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -12025,7 +12025,7 @@
                         "referencedDeclaration": 174,
                         "src": "2982:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -12036,7 +12036,7 @@
                       "lValueRequested": false,
                       "memberName": "setPlantationApproved",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1073,
+                      "referencedDeclaration": 1130,
                       "src": "2982:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bool_$_t_address_$returns$__$",
@@ -12503,7 +12503,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "3768:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -12569,10 +12569,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "3738:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -12739,10 +12739,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "3832:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -12945,7 +12945,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4284:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -12974,7 +12974,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4313:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -13222,7 +13222,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -13230,10 +13230,10 @@
                         "id": 276,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "4570:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -13253,7 +13253,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "4596:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -13286,10 +13286,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "4585:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -13303,7 +13303,7 @@
                     "nodeType": "FunctionCall",
                     "src": "4585:22:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -13430,7 +13430,7 @@
                         "referencedDeclaration": 277,
                         "src": "4623:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -13441,7 +13441,7 @@
                       "lValueRequested": false,
                       "memberName": "emitFFBEvent",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1109,
+                      "referencedDeclaration": 1166,
                       "src": "4623:14:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -13533,7 +13533,7 @@
                         "referencedDeclaration": 277,
                         "src": "4705:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -13544,7 +13544,7 @@
                       "lValueRequested": false,
                       "memberName": "saveFFBToken",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1130,
+                      "referencedDeclaration": 1187,
                       "src": "4705:14:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_address_$returns$__$",
@@ -13787,10 +13787,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "4861:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -13838,7 +13838,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1155,
+                            "referencedDeclaration": 1212,
                             "src": "4991:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -13930,10 +13930,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1158,
-                        1159
+                        1215,
+                        1216
                       ],
-                      "referencedDeclaration": 1159,
+                      "referencedDeclaration": 1216,
                       "src": "4983:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -14180,7 +14180,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1155,
+                                  "referencedDeclaration": 1212,
                                   "src": "5282:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -14241,10 +14241,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              1158,
-                              1159
+                              1215,
+                              1216
                             ],
-                            "referencedDeclaration": 1159,
+                            "referencedDeclaration": 1216,
                             "src": "5235:7:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -14406,10 +14406,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              1158,
-                              1159
+                              1215,
+                              1216
                             ],
-                            "referencedDeclaration": 1159,
+                            "referencedDeclaration": 1216,
                             "src": "5364:7:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -15178,7 +15178,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1155,
+                                "referencedDeclaration": 1212,
                                 "src": "6073:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -15881,7 +15881,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 1155,
+                                    "referencedDeclaration": 1212,
                                     "src": "6732:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -16252,7 +16252,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Plantation_$1140",
+                        "typeIdentifier": "t_contract$_Plantation_$1197",
                         "typeString": "contract Plantation"
                       },
                       "typeName": {
@@ -16260,10 +16260,10 @@
                         "id": 505,
                         "name": "Plantation",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 1140,
+                        "referencedDeclaration": 1197,
                         "src": "6978:10:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -16300,10 +16300,10 @@
                       "name": "Plantation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1140,
+                      "referencedDeclaration": 1197,
                       "src": "6993:10:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1140_$",
+                        "typeIdentifier": "t_type$_t_contract$_Plantation_$1197_$",
                         "typeString": "type(contract Plantation)"
                       }
                     },
@@ -16317,7 +16317,7 @@
                     "nodeType": "FunctionCall",
                     "src": "6993:22:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Plantation_$1140",
+                      "typeIdentifier": "t_contract$_Plantation_$1197",
                       "typeString": "contract Plantation"
                     }
                   },
@@ -16354,7 +16354,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1155,
+                          "referencedDeclaration": 1212,
                           "src": "7066:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -16396,7 +16396,7 @@
                         "referencedDeclaration": 506,
                         "src": "7035:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Plantation_$1140",
+                          "typeIdentifier": "t_contract$_Plantation_$1197",
                           "typeString": "contract Plantation"
                         }
                       },
@@ -16407,7 +16407,7 @@
                       "lValueRequested": false,
                       "memberName": "setPlantationApproved",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1073,
+                      "referencedDeclaration": 1130,
                       "src": "7035:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bool_$_t_address_$returns$__$",
@@ -18988,5 +18988,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-20T23:26:40.862Z"
+  "updatedAt": "2018-12-20T23:26:06.993Z"
 }
